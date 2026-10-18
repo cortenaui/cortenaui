@@ -9,7 +9,6 @@
 .externalNativeBuild
 .cxx
 local.properties
-/reference
 
 # zensical
 /site
