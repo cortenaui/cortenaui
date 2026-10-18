@@ -9,7 +9,7 @@ android {
 
     defaultConfig {
         applicationId = "app.cortena.ui.catalog"
-        minSdk = 35
+        minSdk = 33
         targetSdk = 37
         versionCode = 2
         versionName = "0.3.1-alpha"
