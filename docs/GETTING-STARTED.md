@@ -61,7 +61,7 @@ CortenaUI's `ui` module targets modern Android. Your application module must com
 android {
     compileSdk = 37  // minimum, newer is fine
     defaultConfig {
-        minSdk = 35  // required for the ui module
+        minSdk = 33  // Android 13, required for the ui module
     }
 }
 ```

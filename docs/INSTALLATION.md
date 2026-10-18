@@ -169,7 +169,7 @@ Drop them into your project's `libs/` folder if you need an offline-friendly ins
 ## Requirements
 
 - **Compile SDK**: 37 (Android 17) or newer. Required for the `ui` module.
-- **Min SDK**: 35 for `ui`, 21 for `ui-foundation`, `ui-shape`, and `ui-motion`.
+- **Min SDK**: 33 (Android 13) for `ui`, 21 for `ui-foundation`, `ui-shape`, and `ui-motion`.
 - **Kotlin**: 2.3+.
 - **Compose Multiplatform**: 1.10.3+.
 
@@ -179,7 +179,7 @@ The `ui` module's `compileSdk = 37` is the **minimum**, not an exact pin — new
 android {
     compileSdk = 37  // minimum, newer is fine
     defaultConfig {
-        minSdk = 35  // required for the ui module
+        minSdk = 33  // Android 13, required for the ui module
     }
 }
 ```
