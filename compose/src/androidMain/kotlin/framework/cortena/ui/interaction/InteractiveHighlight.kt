@@ -25,9 +25,9 @@ import kotlinx.coroutines.launch
 @Suppress("EXPECT_ACTUAL_CLASSIFIERS_ARE_IN_BETA_WARNING")
 actual class InteractiveHighlight
 actual constructor(
-    val animationScope: CoroutineScope,
+    private val animationScope: CoroutineScope,
     color: Color,
-    val position: (size: Size, offset: Offset) -> Offset,
+    private val position: (size: Size, offset: Offset) -> Offset,
 ) {
 
     // Bespoke spring specs. Like DampedAnimation, the highlight's press progress and shader
