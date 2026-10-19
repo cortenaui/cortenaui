@@ -1,0 +1,36 @@
+name: Bug report
+description: Something in CortenaUI does not work as documented.
+labels: ["bug"]
+body:
+  - type: textarea
+    id: description
+    attributes:
+      label: What happened
+      description: What you saw, and what you expected instead.
+    validations:
+      required: true
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: Steps to reproduce
+      description: A minimal code sample, or the steps in the catalog app.
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: CortenaUI version
+      placeholder: 0.3.2-alpha
+    validations:
+      required: true
+  - type: input
+    id: device
+    attributes:
+      label: Device and Android version
+      placeholder: Pixel 8, Android 15
+    validations:
+      required: true
+  - type: textarea
+    id: logs
+    attributes:
+      label: Logs, screenshots, or recordings
