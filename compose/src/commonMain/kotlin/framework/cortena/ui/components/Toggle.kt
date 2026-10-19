@@ -4,9 +4,9 @@
  */
 package framework.cortena.ui.components
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -17,11 +17,9 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.runtime.setValue
 import androidx.compose.runtime.snapshotFlow
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.drawBehind
-import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.isSpecified
@@ -38,12 +36,12 @@ import androidx.compose.ui.unit.DpOffset
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.util.fastCoerceIn
-import androidx.compose.ui.zIndex
+import framework.cortena.ui.annotation.ExperimentalComponentsApi
 import framework.cortena.ui.color.ColorToken
 import framework.cortena.ui.graphics.shadow.Shadow
-import framework.cortena.ui.graphics.shadow.componentShadow
 import framework.cortena.ui.interaction.DampedAnimation
-import framework.cortena.ui.interaction.applyInteractiveAnimation
+import framework.cortena.ui.primitives.Container
+import framework.cortena.ui.primitives.DragTrack
 import framework.cortena.ui.shape.CapsuleShape
 import framework.cortena.ui.size.SizeToken
 import framework.cortena.ui.theme.LocalColors
@@ -55,6 +53,7 @@ import framework.cortena.ui.theme.toggleTrackWidth
 import framework.cortena.ui.theme.value
 import kotlinx.coroutines.flow.collectLatest
 
+@OptIn(ExperimentalComponentsApi::class)
 @Composable
 fun Toggle(
     checked: Boolean,
@@ -151,7 +150,8 @@ fun Toggle(
                 .then(dampedAnimation.modifier)
         } else Modifier
 
-    Box(
+    DragTrack(
+        animation = dampedAnimation,
         modifier =
             modifier
                 .size(trackWidth, trackHeight)
@@ -161,38 +161,25 @@ fun Toggle(
                 }
                 .then(gestureModifier)
                 .graphicsLayer { alpha = if (enabled) 1f else 0.38f },
-        contentAlignment = Alignment.CenterStart,
-    ) {
-        Box(
-            modifier =
-                Modifier.matchParentSize().clip(shape).drawBehind {
-                    val progress = dampedAnimation.progress.fastCoerceIn(0f, 1f)
-                    drawRect(lerp(resolvedInactiveColor, resolvedActiveColor, progress))
-                }
-        )
-
-        Box(
-            modifier =
-                Modifier.zIndex(1f)
-                    .graphicsLayer {
+        thumbPadding = thumbPadding,
+        track = {
+            Box(
+                modifier =
+                    Modifier.fillMaxSize().clip(shape).drawBehind {
                         val progress = dampedAnimation.progress.fastCoerceIn(0f, 1f)
-                        val travel = (trackWidth - thumbWidth - (thumbPadding * 2)).toPx()
-                        val thumbStart = if (isLtr) progress * travel else (1f - progress) * travel
-
-                        applyInteractiveAnimation(
-                            pressProgress = dampedAnimation.pressProgress,
-                            offset = Offset.Zero,
-                            baseTranslationX = thumbStart + thumbPadding.toPx(),
-                            scaleXMultiplier = dampedAnimation.scaleX,
-                            scaleYMultiplier = dampedAnimation.scaleY,
-                        )
+                        drawRect(lerp(resolvedInactiveColor, resolvedActiveColor, progress))
                     }
-                    .componentShadow(thumbShadow, shape)
-                    .clip(shape)
-                    .background(resolvedThumbColor)
-                    .size(thumbWidth, thumbHeight)
-        )
-    }
+            )
+        },
+        thumb = {
+            Container(
+                modifier = Modifier.size(thumbWidth, thumbHeight),
+                shape = shape,
+                color = resolvedThumbColor,
+                shadow = thumbShadow,
+            )
+        },
+    )
 }
 
 @Composable

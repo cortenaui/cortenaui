@@ -5,24 +5,37 @@
 package app.cortena.ui.catalog.demo
 
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalLayoutDirection
+import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import framework.cortena.ui.annotation.ExperimentalComponentsApi
 import framework.cortena.ui.components.Text
 import framework.cortena.ui.graphics.shadow.InnerShadow
 import framework.cortena.ui.graphics.shadow.Shadow
+import framework.cortena.ui.interaction.DampedAnimation
 import framework.cortena.ui.primitives.Container
+import framework.cortena.ui.primitives.DragTrack
 import framework.cortena.ui.primitives.Pressable
+import framework.cortena.ui.shape.CapsuleShape
 import framework.cortena.ui.shape.RoundedShape
 import framework.cortena.ui.theme.LocalColors
+import framework.cortena.ui.theme.LocalSizeToken
 import framework.cortena.ui.theme.LocalSpacing
+import framework.cortena.ui.theme.componentHeight
+import kotlin.math.roundToInt
 
 @OptIn(ExperimentalComponentsApi::class)
 @Composable
@@ -73,4 +86,57 @@ fun PrimitivesDemo() {
     ) {
         Text("Disabled")
     }
+
+    Text("DragTrack")
+    LevelBar()
+}
+
+// A custom control built only from primitives: drag anywhere on the bar to move the thumb.
+@OptIn(ExperimentalComponentsApi::class)
+@Composable
+private fun LevelBar() {
+    val colors = LocalColors.current
+    val spacing = LocalSpacing.current
+    val height = LocalSizeToken.current.componentHeight
+    val direction by
+        rememberUpdatedState(if (LocalLayoutDirection.current == LayoutDirection.Ltr) 1f else -1f)
+    val animationScope = rememberCoroutineScope()
+    val level =
+        remember(animationScope) {
+            DampedAnimation(
+                animationScope = animationScope,
+                initialValue = 0.5f,
+                valueRange = 0f..1f,
+                visibilityThreshold = 0.001f,
+                initialScale = 1f,
+                pressedScale = 1.2f,
+                onDragStarted = {},
+                onDragStopped = {},
+                onDrag = { size, dragAmount ->
+                    updateValue(targetValue + direction * dragAmount.x / size.width)
+                },
+            )
+        }
+
+    Text("Level: ${(level.targetValue * 100).roundToInt()}%")
+    DragTrack(
+        animation = level,
+        modifier = Modifier.fillMaxWidth().height(height).then(level.modifier),
+        thumbPadding = spacing.Xs.dp,
+        track = {
+            Container(
+                modifier = Modifier.fillMaxSize(),
+                shape = CapsuleShape(),
+                color = Color(colors.surfaceVariant),
+            )
+        },
+        thumb = {
+            Container(
+                modifier = Modifier.size(height - spacing.Xs.dp * 2),
+                shape = CapsuleShape(),
+                color = Color(colors.primary),
+                shadow = Shadow.Default,
+            )
+        },
+    )
 }
