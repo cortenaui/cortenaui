@@ -26,7 +26,7 @@ public const val GoldenRatio: Float = 1.6180339887f
 public const val GoldenRatioStep: Float = 1.2720196495f
 
 /**
- * One typography sub-step ⁴√φ ≈ 1.1283791671.
+ * One typography sub-step ⁴√φ ≈ 1.1278384856.
  *
  * Type tiers within a single category (e.g. `BodySmall` → `BodyMedium` → `BodyLarge`) step
  * by [GoldenRatioSubStep] — softer than [GoldenRatioStep] because font sizes are more
@@ -35,4 +35,4 @@ public const val GoldenRatioStep: Float = 1.2720196495f
  * step between the Large tier of one category and the Small tier of the next. This keeps the
  * full font scale on a single coherent grid: every value is a power of `⁴√φ` times the anchor.
  */
-public const val GoldenRatioSubStep: Float = 1.1283791671f
+public const val GoldenRatioSubStep: Float = 1.1278384856f
