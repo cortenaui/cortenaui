@@ -13,21 +13,22 @@ import androidx.compose.runtime.Immutable
  * Three-tier spring presets for interactive motion.
  *
  * Spring is the default for any motion that originates from user input or follows physical
- * causality (press response, content shift, panel reveal). Use [DurationTokens]-driven tween
- * for deterministic transitions instead — see [Motion] for the easings.
+ * causality (press response, content shift, panel reveal). Use [DurationTokens]-driven tween for
+ * deterministic transitions instead — see [Motion] for the easings.
  *
  * Stiffness rationale:
  *
- * - [Snappy]   = StiffnessHigh        — tight UI feedback (press, toggle thumb, indicator drag).
- * - [Smooth]   = StiffnessMediumLow   — general content shift, panel reveal, item move.
- * - [Gentle]   = StiffnessLow         — large overlays, dialog enter/exit, page transition.
+ * - [Snappy] = StiffnessHigh — tight UI feedback (press, toggle thumb, indicator drag).
+ * - [Smooth] = StiffnessMediumLow — general content shift, panel reveal, item move.
+ * - [Gentle] = StiffnessLow — large overlays, dialog enter/exit, page transition.
  *
- * All three default to no bounce. Components that want a tactile overshoot (e.g. a button
- * press release) should construct a custom `spring()` from these stiffness values plus a
- * higher damping ratio, rather than redefining the stiffness.
+ * All three default to no bounce. Components that want a tactile overshoot (e.g. a button press
+ * release) should construct a custom `spring()` from these stiffness values plus a higher damping
+ * ratio, rather than redefining the stiffness.
  */
 @Immutable
-public class SpringPresets internal constructor(
+public class SpringPresets
+internal constructor(
     public val snappy: SpringSpec<Float>,
     public val smooth: SpringSpec<Float>,
     public val gentle: SpringSpec<Float>,

@@ -51,27 +51,26 @@ actual constructor(
     private val shader = RuntimeShader(InteractiveHighlightShaderSource)
     private val highlightColor = interactiveHighlightColor(color)
 
-    actual val modifier: Modifier =
-        Modifier.drawWithContent {
-            drawContent()
+    actual val modifier: Modifier = Modifier.drawWithContent {
+        drawContent()
 
-            val progress = pressProgressAnimation.value
-            if (progress > 0f) {
-                drawRect(highlightColor.copy(0.14f * progress), blendMode = BlendMode.SrcOver)
-                shader.apply {
-                    val position = position(size, positionAnimation.value)
-                    setFloatUniform("size", size.width, size.height)
-                    setColorUniform("color", highlightColor.copy(0.28f * progress).toArgb())
-                    setFloatUniform("radius", size.minDimension * 1.5f)
-                    setFloatUniform(
-                        "position",
-                        position.x.fastCoerceIn(0f, size.width),
-                        position.y.fastCoerceIn(0f, size.height),
-                    )
-                }
-                drawRect(ShaderBrush(shader), blendMode = BlendMode.SrcOver)
+        val progress = pressProgressAnimation.value
+        if (progress > 0f) {
+            drawRect(highlightColor.copy(0.14f * progress), blendMode = BlendMode.SrcOver)
+            shader.apply {
+                val position = position(size, positionAnimation.value)
+                setFloatUniform("size", size.width, size.height)
+                setColorUniform("color", highlightColor.copy(0.28f * progress).toArgb())
+                setFloatUniform("radius", size.minDimension * 1.5f)
+                setFloatUniform(
+                    "position",
+                    position.x.fastCoerceIn(0f, size.width),
+                    position.y.fastCoerceIn(0f, size.height),
+                )
             }
+            drawRect(ShaderBrush(shader), blendMode = BlendMode.SrcOver)
         }
+    }
 
     actual val gestureModifier: Modifier =
         Modifier.pointerInput(Unit) {

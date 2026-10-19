@@ -34,12 +34,12 @@ internal fun GraphicsLayerScope.applyInteractiveAnimation(
     val offsetAngle = atan2(offset.y, offset.x)
     scaleX =
         (scale +
-                maxDragScale *
+            maxDragScale *
                 abs(cos(offsetAngle) * offset.x / size.maxDimension) *
                 (size.width / size.height).fastCoerceAtMost(1f)) * scaleXMultiplier
     scaleY =
         (scale +
-                maxDragScale *
+            maxDragScale *
                 abs(sin(offsetAngle) * offset.y / size.maxDimension) *
                 (size.height / size.width).fastCoerceAtMost(1f)) * scaleYMultiplier
 }

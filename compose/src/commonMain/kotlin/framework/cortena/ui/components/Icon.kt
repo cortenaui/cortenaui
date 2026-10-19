@@ -74,7 +74,11 @@ fun Icon(
 typealias IconRenderer =
     @Composable
     (
-        modifier: Modifier, tint: Color, size: Dp, enabled: Boolean, contentDescription: String?
+        modifier: Modifier,
+        tint: Color,
+        size: Dp,
+        enabled: Boolean,
+        contentDescription: String?,
     ) -> Unit
 
 /**

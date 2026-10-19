@@ -19,7 +19,11 @@ class SizeScaleTest {
                 SizeScale.HorizontalPaddingLarge,
             ),
             Triple(SizeScale.IconSizeSmall, SizeScale.IconSizeMedium, SizeScale.IconSizeLarge),
-            Triple(SizeScale.ContentGapSmall, SizeScale.ContentGapMedium, SizeScale.ContentGapLarge),
+            Triple(
+                SizeScale.ContentGapSmall,
+                SizeScale.ContentGapMedium,
+                SizeScale.ContentGapLarge,
+            ),
             Triple(
                 SizeScale.ToggleTrackWidthSmall,
                 SizeScale.ToggleTrackWidthMedium,

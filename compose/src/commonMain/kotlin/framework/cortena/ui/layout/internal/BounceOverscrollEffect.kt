@@ -112,10 +112,9 @@ internal class BounceOverscrollEffect(
             if (abs(newValue) >= autoReleaseThreshold && !autoReleaseLatched) {
                 autoReleaseLatched = true
                 snapJob?.cancel()
-                snapJob =
-                    scope.launch {
-                        overscrollOffset.animateTo(targetValue = 0f, animationSpec = releaseSpec)
-                    }
+                snapJob = scope.launch {
+                    overscrollOffset.animateTo(targetValue = 0f, animationSpec = releaseSpec)
+                }
             }
         }
 
@@ -207,14 +206,13 @@ internal class BounceOverscrollEffect(
         get() = overscrollOffset.value != 0f
 
     val overscroll: Modifier
-        get() =
-            Modifier.graphicsLayer {
-                if (orientation == Orientation.Vertical) {
-                    translationY = overscrollOffset.value
-                } else {
-                    translationX = overscrollOffset.value
-                }
+        get() = Modifier.graphicsLayer {
+            if (orientation == Orientation.Vertical) {
+                translationY = overscrollOffset.value
+            } else {
+                translationX = overscrollOffset.value
             }
+        }
 
     // Rubber-band resistance. Returns a multiplier in (0, 0.3] that shrinks as the absolute
     // overscroll grows toward maxOverscroll, so the further the user pulls, the harder it gets.

@@ -56,9 +56,7 @@ fun ListViewDemo() {
                 )
             secondaryColors.forEach { (name) ->
                 item {
-                    ListItem(
-                        title = { Text(name, role = TextRole.BodyMedium) },
-                    )
+                    ListItem(title = { Text(name, role = TextRole.BodyMedium) })
                 }
             }
         }

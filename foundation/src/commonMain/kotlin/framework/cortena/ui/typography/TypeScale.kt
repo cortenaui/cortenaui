@@ -9,19 +9,18 @@ import framework.cortena.ui.size.GoldenRatioSubStep
 /**
  * CortenaUI — Type Scale
  *
- * Font size and line height tokens. Values in raw Float (sp equivalent). Framework-agnostic —
- * the Compose layer wraps these as TextUnit.
+ * Font size and line height tokens. Values in raw Float (sp equivalent). Framework-agnostic — the
+ * Compose layer wraps these as TextUnit.
  *
- * The scale is organized into four semantic categories — Display, Headline, Title, Body —
- * each with three tiers (Small / Medium / Large). Components that need a "label" weight pick
- * the appropriate body or title size and pass `weight = TextWeight.Medium` instead of using a
- * separate label tier.
+ * The scale is organized into four semantic categories — Display, Headline, Title, Body — each with
+ * three tiers (Small / Medium / Large). Components that need a "label" weight pick the appropriate
+ * body or title size and pass `weight = TextWeight.Medium` instead of using a separate label tier.
  *
  * Every size is a power of `⁴√φ` ([GoldenRatioSubStep]) times the [BodyMedium] anchor at 16sp.
- * Tier-to-tier within a category steps by ⁴√φ; category-to-category (Body Large → Title Small)
- * also steps by ⁴√φ, so the full scale lives on a single coherent grid. Two consecutive sub-steps
- * equal √φ; four equal φ — so Body Medium → Title Large → Display Small triples by exact φ
- * jumps, and the whole scale stays mathematically grounded.
+ * Tier-to-tier within a category steps by ⁴√φ; category-to-category (Body Large → Title Small) also
+ * steps by ⁴√φ, so the full scale lives on a single coherent grid. Two consecutive sub-steps equal
+ * √φ; four equal φ — so Body Medium → Title Large → Display Small triples by exact φ jumps, and the
+ * whole scale stays mathematically grounded.
  *
  * Line heights use the conventional `~1.4 × fontSize` ratio rather than φ, because line height
  * driven by φ feels visually airy beyond what reads well in body copy.

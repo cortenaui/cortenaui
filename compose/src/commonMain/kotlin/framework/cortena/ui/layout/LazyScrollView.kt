@@ -118,12 +118,12 @@ fun LazyScrollView(
     if (onReachedStart != null || onReachedEnd != null) {
         LaunchedEffect(state, onReachedStart, onReachedEnd) {
             snapshotFlow {
-                    val info = state.layoutInfo
-                    val visible = info.visibleItemsInfo
-                    val firstVisible = visible.firstOrNull()?.index ?: -1
-                    val lastVisible = visible.lastOrNull()?.index ?: -1
-                    Triple(firstVisible, lastVisible, info.totalItemsCount)
-                }
+                val info = state.layoutInfo
+                val visible = info.visibleItemsInfo
+                val firstVisible = visible.firstOrNull()?.index ?: -1
+                val lastVisible = visible.lastOrNull()?.index ?: -1
+                Triple(firstVisible, lastVisible, info.totalItemsCount)
+            }
                 .collect { (first, last, total) ->
                     if (total > 0 && first == 0) onReachedStart?.invoke()
                     if (total > 0 && last == total - 1) onReachedEnd?.invoke()

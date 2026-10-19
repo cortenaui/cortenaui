@@ -7,8 +7,8 @@ package framework.cortena.ui.motion
 /**
  * Cubic-bezier easing coefficients as raw Float quartets `(a, b, c, d)`.
  *
- * Framework-agnostic: no Compose imports. Compose-side adapters in `:motion` translate these
- * into `CubicBezierEasing` instances.
+ * Framework-agnostic: no Compose imports. Compose-side adapters in `:motion` translate these into
+ * `CubicBezierEasing` instances.
  *
  * Curves chosen to match the Cortena motion language:
  *
