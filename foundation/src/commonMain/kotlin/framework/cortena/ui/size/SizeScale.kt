@@ -7,21 +7,20 @@ package framework.cortena.ui.size
 /**
  * CortenaUI — Size Scale
  *
- * Raw Float constants (dp equivalent) for each [SizeToken] tier. Framework-agnostic — the
- * Compose layer wraps these as Dp.
+ * Raw Float constants (dp equivalent) for each [SizeToken] tier. Framework-agnostic — the Compose
+ * layer wraps these as Dp.
  *
- * Medium is the anchor for every dimension and matches the existing hardcoded library values,
- * so adopting the size system introduces zero visual regressions at the default tier. Small
- * and Large derive from Medium via a single golden-ratio step ([GoldenRatioStep] = √φ):
+ * Medium is the anchor for every dimension and matches the existing hardcoded library values, so
+ * adopting the size system introduces zero visual regressions at the default tier. Small and Large
+ * derive from Medium via a single golden-ratio step ([GoldenRatioStep] = √φ):
  *
- *   Small  = Medium / √φ   (≈ 0.786 × Medium)
- *   Large  = Medium × √φ   (≈ 1.272 × Medium)
+ * Small = Medium / √φ (≈ 0.786 × Medium) Large = Medium × √φ (≈ 1.272 × Medium)
  *
- * Two steps span the full golden ratio (Small × φ = Large), so the scale stays
- * mathematically grounded without producing dramatic single-tier jumps.
+ * Two steps span the full golden ratio (Small × φ = Large), so the scale stays mathematically
+ * grounded without producing dramatic single-tier jumps.
  *
- * Values are stored at full float precision; no manual rounding. Compose's Dp handles
- * subpixel rendering across density buckets.
+ * Values are stored at full float precision; no manual rounding. Compose's Dp handles subpixel
+ * rendering across density buckets.
  */
 object SizeScale {
 

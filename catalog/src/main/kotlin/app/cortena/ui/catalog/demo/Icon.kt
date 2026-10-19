@@ -40,17 +40,17 @@ fun IconDemo() {
         Icon(
             renderer = PhosphorIcon(PhosphorIcons.Regular.House),
             contentDescription = "House",
-            enabled = enabled
+            enabled = enabled,
         )
         Icon(
             renderer = PhosphorIcon(PhosphorIcons.Regular.Heart),
             contentDescription = "Heart",
-            enabled = enabled
+            enabled = enabled,
         )
         Icon(
             renderer = PhosphorIcon(PhosphorIcons.Regular.Gear),
             contentDescription = "Gear",
-            enabled = enabled
+            enabled = enabled,
         )
     }
 
@@ -59,27 +59,27 @@ fun IconDemo() {
         Icon(
             renderer = PhosphorIcon(PhosphorIcons.Thin.Star),
             contentDescription = "Thin",
-            enabled = enabled
+            enabled = enabled,
         )
         Icon(
             renderer = PhosphorIcon(PhosphorIcons.Light.Star),
             contentDescription = "Light",
-            enabled = enabled
+            enabled = enabled,
         )
         Icon(
             renderer = PhosphorIcon(PhosphorIcons.Regular.Star),
             contentDescription = "Regular",
-            enabled = enabled
+            enabled = enabled,
         )
         Icon(
             renderer = PhosphorIcon(PhosphorIcons.Bold.Star),
             contentDescription = "Bold",
-            enabled = enabled
+            enabled = enabled,
         )
         Icon(
             renderer = PhosphorIcon(PhosphorIcons.Fill.Star),
             contentDescription = "Fill",
-            enabled = enabled
+            enabled = enabled,
         )
     }
 

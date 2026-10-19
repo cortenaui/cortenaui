@@ -58,7 +58,7 @@ private val CaretLeftIcon: ImageVector
                 defaultWidth = 24.dp,
                 defaultHeight = 24.dp,
                 viewportWidth = 256f,
-                viewportHeight = 256f
+                viewportHeight = 256f,
             )
             .apply {
                 path(fill = SolidColor(Color.Black)) { // Tint will override the black color
@@ -70,7 +70,7 @@ private val CaretLeftIcon: ImageVector
                         isMoreThanHalf = false,
                         isPositiveArc = true,
                         dx1 = -17f,
-                        dy1 = 17f
+                        dy1 = 17f,
                     )
                     lineToRelative(-80f, -80f)
                     arcToRelative(
@@ -80,7 +80,7 @@ private val CaretLeftIcon: ImageVector
                         isMoreThanHalf = false,
                         isPositiveArc = true,
                         dx1 = 0f,
-                        dy1 = -17f
+                        dy1 = -17f,
                     )
                     lineToRelative(80f, -80f)
                     arcToRelative(
@@ -90,7 +90,7 @@ private val CaretLeftIcon: ImageVector
                         isMoreThanHalf = false,
                         isPositiveArc = true,
                         dx1 = 17f,
-                        dy1 = 17f
+                        dy1 = 17f,
                     )
                     lineTo(97f, 128f)
                     close()
@@ -106,7 +106,7 @@ fun AppBar(
     leading: (@Composable () -> Unit)? = null,
     trailing: (@Composable RowScope.() -> Unit)? = null,
     background: Brush? = null,
-    content: @Composable () -> Unit = {}
+    content: @Composable () -> Unit = {},
 ) {
     val navigator = LocalNavigator.current
     val colors = LocalColors.current
@@ -131,13 +131,13 @@ fun AppBar(
                         .background(resolvedBackground)
                         .windowInsetsPadding(WindowInsets.statusBars)
                         .heightIn(min = APP_BAR_HEIGHT_DEFAULT)
-                        .padding(horizontal = 16.dp),
+                        .padding(horizontal = 16.dp)
             ) {
                 // Center Title
                 if (title != null && resolvedTitleAlignment == Alignment.Center) {
                     Box(
                         modifier = Modifier.matchParentSize(),
-                        contentAlignment = UiAlignment.Center
+                        contentAlignment = UiAlignment.Center,
                     ) {
                         title()
                     }
@@ -146,7 +146,7 @@ fun AppBar(
                 // Row for Start/End
                 Row(
                     modifier = Modifier.matchParentSize(),
-                    verticalAlignment = UiAlignment.CenterVertically
+                    verticalAlignment = UiAlignment.CenterVertically,
                 ) {
                     if (leading != null) {
                         leading()
@@ -163,7 +163,7 @@ fun AppBar(
                             Icon(
                                 imageVector = CaretLeftIcon,
                                 contentDescription = "Back",
-                                size = 16.dp
+                                size = 16.dp,
                             )
                             Text(
                                 text = navigator.previousTitle ?: "Back",
@@ -176,7 +176,10 @@ fun AppBar(
                         if (hasLeading) Spacer(modifier = Modifier.width(16.dp))
                         Box(
                             modifier = Modifier.weight(1f),
-                            contentAlignment = if (resolvedTitleAlignment == Alignment.Start) UiAlignment.CenterStart else UiAlignment.CenterEnd
+                            contentAlignment =
+                                if (resolvedTitleAlignment == Alignment.Start)
+                                    UiAlignment.CenterStart
+                                else UiAlignment.CenterEnd,
                         ) {
                             title()
                         }

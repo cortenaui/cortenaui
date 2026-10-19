@@ -8,5 +8,5 @@ package framework.cortena.ui.geometry
 enum class Alignment {
     Start,
     Center,
-    End
+    End,
 }

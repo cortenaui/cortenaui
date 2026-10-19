@@ -31,7 +31,9 @@ import framework.cortena.ui.typography.TextWeight
 @Composable
 fun ScrollViewDemo() {
     val colors = LocalColors.current
-    Text("Eager scrollable container - every child is composed upfront. Pulls in CortenaUI's bounce overscroll, auto-hide indicator, and drag-to-scrub.")
+    Text(
+        "Eager scrollable container - every child is composed upfront. Pulls in CortenaUI's bounce overscroll, auto-hide indicator, and drag-to-scrub."
+    )
     val rows = remember { List(50) { "Item #${it + 1}" } }
     Text("Vertical (two columns side by side)", weight = TextWeight.Medium)
     Row(

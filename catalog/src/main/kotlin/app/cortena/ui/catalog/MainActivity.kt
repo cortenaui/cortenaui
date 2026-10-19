@@ -72,20 +72,25 @@ class MainActivity : ComponentActivity() {
 
         ContentView(
             themeMode = { themeMode.value },
-            fontFamily = FontFamily(
-                Font(R.font.generalsans_extralight, FontWeight.ExtraLight),
-                Font(R.font.generalsans_extralight_italic, FontWeight.ExtraLight, FontStyle.Italic),
-                Font(R.font.generalsans_light, FontWeight.Light),
-                Font(R.font.generalsans_light_italic, FontWeight.Light, FontStyle.Italic),
-                Font(R.font.generalsans_regular, FontWeight.Normal),
-                Font(R.font.generalsans_italic, FontWeight.Normal, FontStyle.Italic),
-                Font(R.font.generalsans_medium, FontWeight.Medium),
-                Font(R.font.generalsans_medium_italic, FontWeight.Medium, FontStyle.Italic),
-                Font(R.font.generalsans_semibold, FontWeight.SemiBold),
-                Font(R.font.generalsans_semibold_italic, FontWeight.SemiBold, FontStyle.Italic),
-                Font(R.font.generalsans_bold, FontWeight.Bold),
-                Font(R.font.generalsans_bold_italic, FontWeight.Bold, FontStyle.Italic)
-            )
+            fontFamily =
+                FontFamily(
+                    Font(R.font.generalsans_extralight, FontWeight.ExtraLight),
+                    Font(
+                        R.font.generalsans_extralight_italic,
+                        FontWeight.ExtraLight,
+                        FontStyle.Italic,
+                    ),
+                    Font(R.font.generalsans_light, FontWeight.Light),
+                    Font(R.font.generalsans_light_italic, FontWeight.Light, FontStyle.Italic),
+                    Font(R.font.generalsans_regular, FontWeight.Normal),
+                    Font(R.font.generalsans_italic, FontWeight.Normal, FontStyle.Italic),
+                    Font(R.font.generalsans_medium, FontWeight.Medium),
+                    Font(R.font.generalsans_medium_italic, FontWeight.Medium, FontStyle.Italic),
+                    Font(R.font.generalsans_semibold, FontWeight.SemiBold),
+                    Font(R.font.generalsans_semibold_italic, FontWeight.SemiBold, FontStyle.Italic),
+                    Font(R.font.generalsans_bold, FontWeight.Bold),
+                    Font(R.font.generalsans_bold_italic, FontWeight.Bold, FontStyle.Italic),
+                ),
         ) {
             CompositionLocalProvider(LocalNavigator provides navigator) {
                 Body {
@@ -97,7 +102,7 @@ class MainActivity : ComponentActivity() {
                             if (currentPage == null) {
                                 // Main menu
                                 Column(
-                                    modifier = Modifier.fillMaxWidth().padding(vertical = 8.dp),
+                                    modifier = Modifier.fillMaxWidth().padding(vertical = 8.dp)
                                 ) {
                                     val colors = LocalColors.current
 
@@ -116,21 +121,26 @@ class MainActivity : ComponentActivity() {
                                                 "CortenaUI Catalog",
                                                 role = TextRole.TitleLarge,
                                                 weight = TextWeight.Medium,
-                                                color = Color(colors.primary)
+                                                color = Color(colors.primary),
                                             )
                                         },
                                         trailing = {
                                             Row(verticalAlignment = Alignment.CenterVertically) {
-                                                Text("Dark Mode", role = TextRole.BodyMedium, modifier = Modifier.padding(end = 8.dp))
+                                                Text(
+                                                    "Dark Mode",
+                                                    role = TextRole.BodyMedium,
+                                                    modifier = Modifier.padding(end = 8.dp),
+                                                )
                                                 Toggle(
                                                     checked = isDark,
                                                     onCheckedChange = {
                                                         themeMode.value =
-                                                            if (isDark) ThemeMode.Light else ThemeMode.Dark
+                                                            if (isDark) ThemeMode.Light
+                                                            else ThemeMode.Dark
                                                     },
                                                 )
                                             }
-                                        }
+                                        },
                                     )
 
                                     CatalogMenu(onNavigate = { currentPage = it })

@@ -32,9 +32,10 @@ val LocalSpacing: ProvidableCompositionLocal<Spacing> = compositionLocalOf { Spa
 val LocalSizeToken: ProvidableCompositionLocal<SizeToken> = compositionLocalOf { SizeToken.Medium }
 
 /**
- * Implicit text role propagated by sized component scopes (for example [framework.cortena.ui.components.Button])
- * so nested [framework.cortena.ui.components.Text] picks up a role that matches the parent's
- * size tier. `null` means "no scope-level override" — the Text falls back to its own default.
+ * Implicit text role propagated by sized component scopes (for example
+ * [framework.cortena.ui.components.Button]) so nested [framework.cortena.ui.components.Text] picks
+ * up a role that matches the parent's size tier. `null` means "no scope-level override" — the Text
+ * falls back to its own default.
  */
 val LocalTextRole: ProvidableCompositionLocal<TextRole?> = compositionLocalOf { null }
 
@@ -46,7 +47,7 @@ val LocalTextWeight: ProvidableCompositionLocal<TextWeight?> = compositionLocalO
 
 /**
  * Implicit icon size propagated by sized component scopes so nested
- * [framework.cortena.ui.components.Icon] picks up a size matching the parent's tier. Defaults
- * to 24.dp when no scope is providing one.
+ * [framework.cortena.ui.components.Icon] picks up a size matching the parent's tier. Defaults to
+ * 24.dp when no scope is providing one.
  */
 val LocalIconSize: ProvidableCompositionLocal<Dp> = compositionLocalOf { 24.dp }

@@ -75,7 +75,7 @@ fun ListView(
             modifier =
                 Modifier.fillMaxWidth()
                     .clip(RoundedShape(24.dp))
-                    .background(Color(colors.surfaceVariant)),
+                    .background(Color(colors.surfaceVariant))
         ) {
             scope.items.forEachIndexed { index, itemContent ->
                 val tracker = remember { ListItemLeadingTracker() }

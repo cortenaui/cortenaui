@@ -8,15 +8,15 @@ import androidx.compose.animation.core.CubicBezierEasing
 import androidx.compose.animation.core.Easing
 import androidx.compose.animation.core.LinearEasing
 import androidx.compose.runtime.Immutable
-import framework.cortena.ui.motion.EasingTokens
 
 /**
  * Compose-aware easing presets, derived from the framework-agnostic [EasingTokens] in
- * `:foundation`. Use these inside `tween()` calls for deterministic transitions where a
- * spring would feel too organic — color crossfade, alpha fade, indicator hide.
+ * `:foundation`. Use these inside `tween()` calls for deterministic transitions where a spring
+ * would feel too organic — color crossfade, alpha fade, indicator hide.
  */
 @Immutable
-public class MotionEasings internal constructor(
+public class MotionEasings
+internal constructor(
     public val standard: Easing,
     public val emphasized: Easing,
     public val linear: Easing,

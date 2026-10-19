@@ -103,7 +103,7 @@ fun ComponentActivity.ContentView(
 
             CompositionLocalProvider(
                 LocalAppBarSlot provides appBarSlot,
-                LocalAppBarPadding provides appBarPadding
+                LocalAppBarPadding provides appBarPadding,
             ) {
                 Box(modifier = Modifier.fillMaxSize().background(Color(colors.surface))) {
                     Box(modifier = Modifier.fillMaxSize()) {
