@@ -124,10 +124,14 @@ The callbacks are captured once. Read changing values inside them through `remem
 
 | Parameter                              | Type     | Description                                                                            |
 | -------------------------------------- | -------- | -------------------------------------------------------------------------------------- |
-| `pressProgress`                        | `Float`  | `0` at rest, `1` fully pressed. The element grows by 4dp of its height at `1`.         |
+| `pressProgress`                        | `Float`  | `0` at rest, `1` fully pressed.                                                        |
 | `offset`                               | `Offset` | Drag distance from the press origin in pixels. `Offset.Zero` gives no pull or stretch. |
 | `baseTranslationX`, `baseTranslationY` | `Float`  | Translation in pixels that the pull is added to, for elements that already move.       |
 | `scaleXMultiplier`, `scaleYMultiplier` | `Float`  | Extra scale per axis, such as `DampedAnimation.scaleX` and `scaleY`.                   |
+
+Fully pressed, the element grows by 4dp of its height, and its width grows by at most 4dp × φ²
+(about 10.5dp). The cap keeps wide surfaces, such as a full-width tile, growing about as much as a
+`Button` instead of scaling with their width.
 
 ### `inspectDragGestures`
 
