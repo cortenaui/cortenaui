@@ -31,6 +31,7 @@ import app.cortena.ui.catalog.demo.IconDemo
 import app.cortena.ui.catalog.demo.LazyGridViewDemo
 import app.cortena.ui.catalog.demo.LazyScrollViewDemo
 import app.cortena.ui.catalog.demo.ListViewDemo
+import app.cortena.ui.catalog.demo.PrimitivesDemo
 import app.cortena.ui.catalog.demo.ScrollViewDemo
 import app.cortena.ui.catalog.demo.SliderDemo
 import app.cortena.ui.catalog.demo.ToggleDemo
@@ -154,6 +155,7 @@ class MainActivity : ComponentActivity() {
                                         "Slider" -> SliderDemo()
                                         "Toggle" -> ToggleDemo()
                                         "ListView" -> ListViewDemo()
+                                        "Primitives" -> PrimitivesDemo()
                                         "ScrollView" -> ScrollViewDemo()
                                         "LazyScrollView" -> LazyScrollViewDemo()
                                         "GridView" -> GridViewDemo()

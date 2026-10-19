@@ -28,6 +28,7 @@ fun CatalogMenu(onNavigate: (String) -> Unit) {
         catalogMenuItem("Slider", onNavigate)
         catalogMenuItem("Toggle", onNavigate)
         catalogMenuItem("ListView", onNavigate)
+        catalogMenuItem("Primitives", onNavigate)
     }
 
     Spacer(modifier = Modifier.height(16.dp))

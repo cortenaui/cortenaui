@@ -138,7 +138,10 @@ consumed.
 
 ## Examples
 
-A tappable chip with the same press feel as `Button`:
+For most tap surfaces, [Pressable](../primitives/Pressable.md) wires all of this for you. Use the
+pieces directly when you need a different layout of the same physics.
+
+A tappable chip with the same press feel as `Button`, built by hand:
 
 ```kotlin
 @Composable
