@@ -37,6 +37,9 @@ jobs:
       - name: Compile all modules
         run: ./gradlew :foundation:compileAndroidMain :shape:compileAndroidMain :motion:compileAndroidMain :compose:compileAndroidMain :catalog:compileDebugKotlin --stacktrace
 
+      - name: Run unit tests
+        run: ./gradlew testAndroidHostTest --stacktrace
+
       - name: Assemble release AARs
         run: ./gradlew :foundation:assemble :shape:assemble :motion:assemble :compose:assemble --stacktrace
 

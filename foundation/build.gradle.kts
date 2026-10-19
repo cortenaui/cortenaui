@@ -15,6 +15,7 @@ kotlin {
         compileSdk = 37
         namespace = "framework.cortena.ui.foundation"
         compilerOptions { jvmTarget = JvmTarget.JVM_11 }
+        withHostTest {}
     }
 
     sourceSets {
@@ -23,6 +24,7 @@ kotlin {
             // This module must remain framework-agnostic so it can be consumed
             // by Compose, View system, and future ROM integration alike.
         }
+        commonTest.dependencies { implementation(libs.kotlin.test) }
     }
 }
 
