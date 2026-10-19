@@ -14,8 +14,8 @@ plugins {
 kotlin {
     android {
         namespace = "framework.cortena.ui.compose"
-        compileSdk = 37
-        minSdk = 33
+        compileSdk = libs.versions.androidCompileSdk.get().toInt()
+        minSdk = libs.versions.androidMinSdk.get().toInt()
         compilerOptions { jvmTarget = JvmTarget.JVM_11 }
     }
 

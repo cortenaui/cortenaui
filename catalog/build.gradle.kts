@@ -5,12 +5,12 @@ plugins {
 
 android {
     namespace = "app.cortena.ui.catalog"
-    compileSdk = 37
+    compileSdk = libs.versions.androidCompileSdk.get().toInt()
 
     defaultConfig {
         applicationId = "app.cortena.ui.catalog"
-        minSdk = 33
-        targetSdk = 37
+        minSdk = libs.versions.androidMinSdk.get().toInt()
+        targetSdk = libs.versions.androidTargetSdk.get().toInt()
         versionCode = 2
         versionName = "0.3.2-alpha"
     }
