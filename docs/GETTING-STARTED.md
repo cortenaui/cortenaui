@@ -32,7 +32,7 @@ Add the dependency to your application module's `build.gradle.kts`. The recommen
 ```toml
 # gradle/libs.versions.toml
 [versions]
-cortenaui = "0.3.1-alpha"
+cortenaui = "0.3.2-alpha"
 
 [libraries]
 cortena-ui = { module = "io.github.cortenaui:ui", version.ref = "cortenaui" }
@@ -49,7 +49,7 @@ If you don't use a version catalog, the inline form works too:
 
 ```kotlin
 dependencies {
-    implementation("io.github.cortenaui:ui:0.3.1-alpha")
+    implementation("io.github.cortenaui:ui:0.3.2-alpha")
 }
 ```
 

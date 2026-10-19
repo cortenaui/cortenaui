@@ -11,5 +11,5 @@ plugins {
 
 allprojects {
     group = "io.github.cortenaui"
-    version = "0.3.1-alpha"
+    version = "0.3.2-alpha"
 }
