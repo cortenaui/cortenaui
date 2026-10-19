@@ -45,7 +45,6 @@ import framework.cortena.ui.primitives.DragTrack
 import framework.cortena.ui.shape.CapsuleShape
 import framework.cortena.ui.size.SizeToken
 import framework.cortena.ui.theme.LocalColors
-import framework.cortena.ui.theme.LocalSizeToken
 import framework.cortena.ui.theme.toggleThumbPadding
 import framework.cortena.ui.theme.toggleThumbWidth
 import framework.cortena.ui.theme.toggleTrackHeight
@@ -60,13 +59,14 @@ fun Toggle(
     onCheckedChange: ((Boolean) -> Unit)?,
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
-    size: SizeToken = LocalSizeToken.current,
     activeColor: Color = Color.Unspecified,
     inactiveColor: Color = Color.Unspecified,
     thumbColor: Color = Color.Unspecified,
 ) {
     val colors = LocalColors.current
     val shape = CapsuleShape()
+    // Toggle has one size, the Medium tier, and ignores LocalSizeToken
+    val size = SizeToken.Medium
 
     val trackWidth = size.toggleTrackWidth
     val trackHeight = size.toggleTrackHeight

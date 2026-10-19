@@ -12,6 +12,8 @@ The component is a capsule with:
 
 The component is controlled. You own the state and pass the current value back through `onValueChange`.
 
+`Slider` has one size, the Small tier of the size scale, and ignores `LocalSizeToken`. It is built on the [DragTrack](../primitives/DragTrack.md) primitive.
+
 ## API Reference
 
 ```kotlin
@@ -23,7 +25,6 @@ fun Slider(
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
     steps: Int = 0,
-    size: SizeToken = LocalSizeToken.current,
     indicatorColor: Color = Color.Unspecified,
     trackColor: Color = Color.Unspecified,
     progressColor: Color = Color.Unspecified
@@ -40,7 +41,6 @@ fun Slider(
 | `modifier`       | `Modifier`                        | Standard Compose modifier.                                                                                         |
 | `enabled`        | `Boolean`                         | Disables drag and gesture effects when `false`.                                                                    |
 | `steps`          | `Int`                             | Number of discrete steps (tick marks) evenly distributed across the track. If 0, behaves continuously. Default: 0. |
-| `size`           | `SizeToken`                       | Controls the indicator width, track height, and indicator height. Default: `LocalSizeToken.current`.               |
 | `indicatorColor` | `Color`                           | Indicator pill color. Default: white.                                                                              |
 | `trackColor`     | `Color`                           | Track color. Default: surface variant.                                                                             |
 | `progressColor`  | `Color`                           | Filled progress color. Default: primary.                                                                           |
@@ -84,18 +84,5 @@ Slider(
     onValueChange = { discreteValue = it },
     valueRange = -4f..4f,
     steps = 7, // Creates 8 intervals, snapping exactly to integers like -4, -3, ... 4
-)
-```
-
-### Large Size
-
-```kotlin
-var volume by rememberSaveable { mutableFloatStateOf(0.75f) }
-
-Slider(
-    value = { volume },
-    onValueChange = { volume = it },
-    valueRange = 0f..1f,
-    size = SizeToken.Large,
 )
 ```

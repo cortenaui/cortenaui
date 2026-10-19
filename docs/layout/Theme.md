@@ -39,6 +39,6 @@ fun Theme(
 | `palette`    | `Palette?`               | Ignores automatic OS detection and forces the specific palette you want. If `null`, it will automatically resolve following `themeMode`.    |
 | `typography` | `Typography`             | Overrides the adjusted _font scale_. Default: `DefaultTypography`.                                                                          |
 | `fontFamily` | `FontFamily?`            | Custom font family applied to all `Text` components. If `null`, uses the system default font (`FontFamily.Default`).                        |
-| `sizeToken`  | `SizeToken`              | Sets the global component size tier. All sized components inherit this. Default: `SizeToken.Medium`.                                        |
+| `sizeToken`  | `SizeToken`              | Sets the global component size tier that `Button` inherits. `Slider` and `Toggle` have one fixed size. Default: `SizeToken.Medium`.         |
 | `motion`     | `Motion`                 | Spring presets, durations, and easings consumed by every interactive component. Default: `DefaultMotion`. See [Motion](../extra/Motion.md). |
 | `content`    | `@Composable () -> Unit` | Lambda for your child Composable function placed under the umbrella of this theme.                                                          |
