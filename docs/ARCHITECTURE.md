@@ -160,6 +160,7 @@ compose/src/commonMain/kotlin/framework/cortena/ui/
 │   └── ScrollView.kt        # eager scrollable container with bounce overscroll
 ├── primitives/              # L2, @ExperimentalComponentsApi
 │   ├── Container.kt         # surface: shape, fill, shadows, padding
+│   ├── DragTrack.kt         # track + thumb moved by a DampedAnimation
 │   ├── Pressable.kt         # Container + press physics, highlight, semantics
 │   └── internal/
 │       └── Surface.kt       # surface modifier shared by Container and Pressable
@@ -205,7 +206,7 @@ catalog/src/main/kotlin/app/cortena/ui/catalog/
     ├── LazyGridView.kt      # LazyGridViewDemo()
     ├── LazyScrollView.kt    # LazyScrollViewDemo()
     ├── ListView.kt          # ListViewDemo()
-    ├── Primitives.kt        # PrimitivesDemo() — Container and Pressable
+    ├── Primitives.kt        # PrimitivesDemo() — Container, Pressable, and DragTrack
     ├── ScrollView.kt        # ScrollViewDemo()
     ├── Slider.kt            # SliderDemo()
     ├── Toggle.kt            # ToggleDemo()
@@ -257,7 +258,8 @@ All interactive components (Button, Slider, Toggle) share a common physics-based
 4. **`InteractiveHighlight`** — Platform-specific glow/highlight effect (AGSL shader on Android).
 
 The primitive layer in `primitives/` packages these into building blocks: `Pressable` wires items
-2–4 into one touch surface, and `Button` is built on it.
+2–4 into one touch surface, and `Button` is built on it. `DragTrack` lays out a track and a thumb
+moved by a `DampedAnimation`, and `Slider` and `Toggle` are built on it.
 
 ### Color Resolution
 
@@ -314,6 +316,7 @@ Component documentation is maintained in `docs/components/` following a standard
 | `layout/Theme.md`          | Theme composable             |
 | `primitives/Container.md`  | Shaped surface primitive     |
 | `primitives/Pressable.md`  | Touchable surface primitive  |
+| `primitives/DragTrack.md`  | Track and thumb primitive    |
 | `extra/Interaction.md`     | Touch physics primitives     |
 | `extra/Motion.md`          | Motion language reference    |
 | `extra/Shape.md`           | Shape system + squircle math |

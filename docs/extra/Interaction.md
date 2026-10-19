@@ -184,7 +184,8 @@ fun Chip(label: String, onClick: () -> Unit, modifier: Modifier = Modifier) {
 }
 ```
 
-A knob that springs along a track and snaps to the nearest end on release:
+A knob that springs along a track and snaps to the nearest end on release, built by hand.
+[DragTrack](../primitives/DragTrack.md) handles this track-and-thumb layout for you:
 
 ```kotlin
 @Composable
