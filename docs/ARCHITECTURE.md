@@ -41,6 +41,7 @@ foundation/src/commonMain/kotlin/framework/cortena/ui/
 │   ├── ColorToken.kt         # public adaptive color palette
 │   └── Palette.kt            # semantic roles (background, primary, error...)
 ├── geometry/
+│   ├── Alignment.kt          # Start / Center / End
 │   └── Orientation.kt        # Horizontal / Vertical
 ├── shape/
 │   ├── ContinuousCurvature.kt   # pure-Kotlin squircle path emitter
@@ -57,7 +58,7 @@ foundation/src/commonMain/kotlin/framework/cortena/ui/
 │   └── SizeScale.kt          # raw dp Float values per tier (Small/Large derived from Medium via √φ)
 ├── typography/
 │   ├── TextWeight.kt         # Default / Medium / Bold
-│   ├── TypeScale.kt          # golden-ratio derived sp values (anchor BodyMedium = 16)
+│   ├── TypeScale.kt          # golden-ratio derived sp values (anchor BodyMedium = 14)
 │   └── Typography.kt         # semantic roles (bodyMedium, titleLarge...)
 └── spacing/
     └── Spacing.kt            # 4dp grid (Xs=4, Sm=8, Md=16...)
@@ -68,6 +69,10 @@ example a system-level dynamic-island overlay rendered with `android.graphics.Ca
 [`CornerPathReceiver`](../foundation/src/commonMain/kotlin/framework/cortena/ui/shape/CornerPathReceiver.kt)
 and call `ContinuousCurvature.emit(...)` to obtain the same squircle path math used by the
 Compose components.
+
+Unit tests live in `foundation/src/commonTest/` and use `kotlin-test`. They pin the token math
+(φ steps, size tiers, type scale, spacing grid, palette contrast) and the squircle path output.
+Run them with `./gradlew testAndroidHostTest`; `./gradlew build` and CI run them too.
 
 ### `:shape`
 
@@ -183,15 +188,22 @@ Showcase app. Depends on `:compose` (and transitively `:shape`, `:motion`, `:fou
 Used to develop and visually verify all components in a live environment.
 
 ```
-catalog/src/main/java/app/cortena/ui/catalog/
-├── MainActivity.kt          # main activity with theme toggle
+catalog/src/main/kotlin/app/cortena/ui/catalog/
+├── MainActivity.kt          # routing, Navigator, theme toggle
+├── CatalogMenu.kt           # menu entries
+├── DemoPage.kt              # shared demo page scaffold
 └── demo/
     ├── Button.kt            # ButtonDemo()
     ├── Color.kt             # ColorDemo() — responsive palette grid
+    ├── GridView.kt          # GridViewDemo()
+    ├── Icon.kt              # IconDemo()
+    ├── LazyGridView.kt      # LazyGridViewDemo()
+    ├── LazyScrollView.kt    # LazyScrollViewDemo()
+    ├── ListView.kt          # ListViewDemo()
     ├── ScrollView.kt        # ScrollViewDemo()
     ├── Slider.kt            # SliderDemo()
     ├── Toggle.kt            # ToggleDemo()
-    └── Typography.kt        # TypographyDemo() — all 15 TextRoles + advanced features
+    └── Typography.kt        # TypographyDemo() — all 12 TextRoles + advanced features
 ```
 
 ## Theme System
@@ -277,6 +289,8 @@ Component documentation is maintained in `docs/components/` following a standard
 | `components/AppBar.md`     | Top app bar                  |
 | `components/Button.md`     | Interactive button           |
 | `components/Icon.md`       | Tinted vector icon           |
+| `components/ListItem.md`   | Row inside a ListView        |
+| `components/ListView.md`   | Grouped list section         |
 | `components/Separator.md`  | Visual divider line          |
 | `components/Slider.md`     | Value adjustment slider      |
 | `components/Text.md`       | Semantic text component      |
