@@ -14,6 +14,7 @@ compose-foundation = { module = "org.jetbrains.compose.foundation:foundation", v
 compose-runtime = { module = "org.jetbrains.compose.runtime:runtime", version.ref = "compose" }
 compose-ui = { module = "org.jetbrains.compose.ui:ui", version.ref = "compose" }
 cortena-icons = { module = "io.github.cortenaui:phosphor_icons", version.ref = "icons" }
+kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
