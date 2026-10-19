@@ -11,8 +11,8 @@ plugins {
 
 kotlin {
     android {
-        minSdk = 21
-        compileSdk = 37
+        minSdk = libs.versions.androidMinSdkCore.get().toInt()
+        compileSdk = libs.versions.androidCompileSdk.get().toInt()
         namespace = "framework.cortena.ui.foundation"
         compilerOptions { jvmTarget = JvmTarget.JVM_11 }
         withHostTest {}
