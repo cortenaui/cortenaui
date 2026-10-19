@@ -4,28 +4,21 @@
  */
 package framework.cortena.ui.components
 
-import androidx.compose.foundation.background
-import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.isSpecified
-import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.unit.dp
-import framework.cortena.ui.interaction.InteractiveHighlight
-import framework.cortena.ui.interaction.applyInteractiveAnimation
+import framework.cortena.ui.annotation.ExperimentalComponentsApi
+import framework.cortena.ui.primitives.Pressable
 import framework.cortena.ui.shape.CapsuleShape
 import framework.cortena.ui.size.SizeToken
 import framework.cortena.ui.theme.LocalColors
@@ -54,6 +47,7 @@ enum class ButtonVariant {
     Soft,
 }
 
+@OptIn(ExperimentalComponentsApi::class)
 @Suppress("ModifierParameter")
 @Composable
 fun Button(
@@ -72,7 +66,6 @@ fun Button(
 ) {
     val colors = LocalColors.current
     val spacing = LocalSpacing.current
-    val animationScope = rememberCoroutineScope()
 
     val primary = Color(colors.primary)
     val secondary = Color(colors.secondary)
@@ -134,53 +127,39 @@ fun Button(
             SizeToken.Large -> TextRole.BodyLarge
         }
 
-    // Changes to the background color must not destroy and recreate the InteractiveHighlight
-    val interactiveHighlight =
-        remember(animationScope) {
-            InteractiveHighlight(animationScope = animationScope, color = backgroundColor)
-        }
-
-    Row(
+    Pressable(
+        onClick = { onClick?.invoke() },
         modifier =
             modifier
-                .graphicsLayer {
-                    if (interactive) {
-                        applyInteractiveAnimation(
-                            pressProgress = interactiveHighlight.pressProgress,
-                            offset = interactiveHighlight.offset,
-                        )
-                    }
-                    alpha = if (enabled) 1f else 0.38f
-                }
-                .clip(CapsuleShape())
-                .background(backgroundColor)
-                .then(if (enabled) interactiveHighlight.gestureModifier else Modifier)
-                .combinedClickable(
-                    interactionSource = null,
-                    indication = null,
-                    enabled = enabled,
-                    // hapticFeedbackEnabled = false,
-                    role = Role.Button,
-                    onClick = { onClick?.invoke() },
-                    onLongClick = { onLongClick?.invoke() },
-                )
-                .then(if (enabled) interactiveHighlight.modifier else Modifier)
                 .height(size.componentHeight)
-                .then(
-                    if (iconOnly) Modifier.width(size.componentHeight).padding(spacing.Xs.dp)
-                    else Modifier.padding(horizontal = size.horizontalPadding)
-                ),
-        horizontalArrangement =
-            Arrangement.spacedBy(space = size.contentGap, alignment = Alignment.CenterHorizontally),
-        verticalAlignment = Alignment.CenterVertically,
+                .then(if (iconOnly) Modifier.width(size.componentHeight) else Modifier),
+        enabled = enabled,
+        // Always set, so a long press never falls through to onClick.
+        onLongClick = { onLongClick?.invoke() },
+        interactive = interactive,
+        shape = CapsuleShape(),
+        color = backgroundColor,
+        padding =
+            if (iconOnly) PaddingValues(spacing.Xs.dp)
+            else PaddingValues(horizontal = size.horizontalPadding),
+        contentAlignment = Alignment.Center,
     ) {
-        CompositionLocalProvider(
-            LocalContentColor provides contentColor,
-            LocalTextRole provides contentTextRole,
-            LocalTextWeight provides TextWeight.Default,
-            LocalIconSize provides size.iconSize,
+        Row(
+            horizontalArrangement =
+                Arrangement.spacedBy(
+                    space = size.contentGap,
+                    alignment = Alignment.CenterHorizontally,
+                ),
+            verticalAlignment = Alignment.CenterVertically,
         ) {
-            content()
+            CompositionLocalProvider(
+                LocalContentColor provides contentColor,
+                LocalTextRole provides contentTextRole,
+                LocalTextWeight provides TextWeight.Default,
+                LocalIconSize provides size.iconSize,
+            ) {
+                content()
+            }
         }
     }
 }

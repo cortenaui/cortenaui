@@ -158,6 +158,11 @@ compose/src/commonMain/kotlin/framework/cortena/ui/
 │   ├── LazyScrollView.kt    # lazy 1D list (LazyColumn / LazyRow wrapper)
 │   ├── SafeArea.kt          # system insets padding
 │   └── ScrollView.kt        # eager scrollable container with bounce overscroll
+├── primitives/              # L2, @ExperimentalComponentsApi
+│   ├── Container.kt         # surface: shape, fill, shadows, padding
+│   ├── Pressable.kt         # Container + press physics, highlight, semantics
+│   └── internal/
+│       └── Surface.kt       # surface modifier shared by Container and Pressable
 └── theme/
     ├── ColorExtensions.kt         # ColorToken.value() helpers
     ├── LocalProviders.kt          # CompositionLocal definitions
@@ -200,6 +205,7 @@ catalog/src/main/kotlin/app/cortena/ui/catalog/
     ├── LazyGridView.kt      # LazyGridViewDemo()
     ├── LazyScrollView.kt    # LazyScrollViewDemo()
     ├── ListView.kt          # ListViewDemo()
+    ├── Primitives.kt        # PrimitivesDemo() — Container and Pressable
     ├── ScrollView.kt        # ScrollViewDemo()
     ├── Slider.kt            # SliderDemo()
     ├── Toggle.kt            # ToggleDemo()
@@ -249,6 +255,9 @@ All interactive components (Button, Slider, Toggle) share a common physics-based
 2. **`inspectDragGestures`** — Low-level gesture detector that emits `onDragStart`, `onDrag`, `onDragEnd`, and `onDragCancel` callbacks without waiting for touch slop. It consumes the moves it reports.
 3. **`applyInteractiveAnimation`** — `graphicsLayer` extension that applies press-scale, translation, and feedback transforms in a single pass.
 4. **`InteractiveHighlight`** — Platform-specific glow/highlight effect (AGSL shader on Android).
+
+The primitive layer in `primitives/` packages these into building blocks: `Pressable` wires items
+2–4 into one touch surface, and `Button` is built on it.
 
 ### Color Resolution
 
@@ -303,6 +312,8 @@ Component documentation is maintained in `docs/components/` following a standard
 | `layout/SafeArea.md`       | System insets padding        |
 | `layout/ScrollView.md`     | Eager scrollable container   |
 | `layout/Theme.md`          | Theme composable             |
+| `primitives/Container.md`  | Shaped surface primitive     |
+| `primitives/Pressable.md`  | Touchable surface primitive  |
 | `extra/Interaction.md`     | Touch physics primitives     |
 | `extra/Motion.md`          | Motion language reference    |
 | `extra/Shape.md`           | Shape system + squircle math |

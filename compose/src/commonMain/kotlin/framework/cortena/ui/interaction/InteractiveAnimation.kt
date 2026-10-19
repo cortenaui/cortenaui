@@ -9,6 +9,7 @@ import androidx.compose.ui.graphics.GraphicsLayerScope
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.util.fastCoerceAtMost
 import androidx.compose.ui.util.lerp
+import framework.cortena.ui.size.GoldenRatio
 import kotlin.math.abs
 import kotlin.math.atan2
 import kotlin.math.cos
@@ -17,8 +18,8 @@ import kotlin.math.tanh
 
 /**
  * Applies CortenaUI's press motion to a graphics layer. While pressed, the element grows by 4dp of
- * its height, follows the finger with a soft pull that tapers off, and stretches along the drag
- * direction.
+ * its height and at most 4dp × φ² (about 10.5dp) of its width, follows the finger with a soft pull
+ * that tapers off, and stretches along the drag direction.
  *
  * Call it inside `Modifier.graphicsLayer { }` so per-frame values never trigger recomposition.
  *
@@ -40,23 +41,25 @@ fun GraphicsLayerScope.applyInteractiveAnimation(
     scaleXMultiplier: Float = 1f,
     scaleYMultiplier: Float = 1f,
 ) {
-    val scale = lerp(1f, 1f + 4f.dp.toPx() / size.height, pressProgress)
+    val grow = 4f.dp.toPx()
+    // Cap the width growth too, so a wide surface grows about as much as a Button does
+    val growth = minOf(grow / size.height, grow * GoldenRatio * GoldenRatio / size.width)
+    val scale = lerp(1f, 1f + growth, pressProgress)
 
     val maxOffset = size.minDimension
     val initialDerivative = 0.05f
     translationX = baseTranslationX + maxOffset * tanh(initialDerivative * offset.x / maxOffset)
     translationY = baseTranslationY + maxOffset * tanh(initialDerivative * offset.y / maxOffset)
 
-    val maxDragScale = 4f.dp.toPx() / size.height
     val offsetAngle = atan2(offset.y, offset.x)
     scaleX =
         (scale +
-            maxDragScale *
+            growth *
                 abs(cos(offsetAngle) * offset.x / size.maxDimension) *
                 (size.width / size.height).fastCoerceAtMost(1f)) * scaleXMultiplier
     scaleY =
         (scale +
-            maxDragScale *
+            growth *
                 abs(sin(offsetAngle) * offset.y / size.maxDimension) *
                 (size.height / size.width).fastCoerceAtMost(1f)) * scaleYMultiplier
 }
