@@ -15,6 +15,7 @@ import androidx.compose.ui.graphics.drawscope.translate
 import androidx.compose.ui.graphics.layer.CompositingStrategy
 import androidx.compose.ui.graphics.layer.GraphicsLayer
 import androidx.compose.ui.graphics.layer.drawLayer
+import androidx.compose.ui.graphics.nativePaint
 import androidx.compose.ui.node.DrawModifierNode
 import androidx.compose.ui.node.ModifierNodeElement
 import androidx.compose.ui.node.invalidateDraw
@@ -128,7 +129,7 @@ internal class ShadowNode(var shapeProvider: ShapeProvider, var shadow: () -> Sh
     private fun DrawScope.configurePaint(shadow: Shadow) {
         paint.color = shadow.color
         val blurRadius = shadow.radius.toPx()
-        paint.asFrameworkPaint().maskFilter =
+        paint.nativePaint.maskFilter =
             if (blurRadius > 0f) {
                 BlurMaskFilter(blurRadius, BlurMaskFilter.Blur.NORMAL)
             } else {
