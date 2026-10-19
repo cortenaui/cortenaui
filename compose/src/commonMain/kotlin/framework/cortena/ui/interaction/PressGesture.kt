@@ -16,6 +16,14 @@ import androidx.compose.ui.input.pointer.changedToUpIgnoreConsumed
 import androidx.compose.ui.input.pointer.positionChange
 import androidx.compose.ui.util.fastFirstOrNull
 
+/**
+ * Detects a press and the drag that follows it, without waiting for touch slop.
+ *
+ * [onDragStart] fires on the first down. [onDrag] then fires once with [Offset.Zero] and again for
+ * every move, and [onDragEnd] fires when the last pointer lifts. If the pointer is lost or another
+ * handler consumes a move first, [onDragCancel] fires instead. Every move reported to [onDrag] is
+ * consumed.
+ */
 suspend fun PointerInputScope.inspectDragGestures(
     onDragStart: (down: PointerInputChange) -> Unit = {},
     onDragEnd: (change: PointerInputChange) -> Unit = {},

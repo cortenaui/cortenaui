@@ -15,7 +15,24 @@ import kotlin.math.cos
 import kotlin.math.sin
 import kotlin.math.tanh
 
-internal fun GraphicsLayerScope.applyInteractiveAnimation(
+/**
+ * Applies CortenaUI's press motion to a graphics layer. While pressed, the element grows by 4dp of
+ * its height, follows the finger with a soft pull that tapers off, and stretches along the drag
+ * direction.
+ *
+ * Call it inside `Modifier.graphicsLayer { }` so per-frame values never trigger recomposition.
+ *
+ * @param pressProgress `0` at rest, `1` fully pressed, such as [InteractiveHighlight.pressProgress]
+ *   or [DampedAnimation.pressProgress].
+ * @param offset Drag distance from the press origin in pixels, such as
+ *   [InteractiveHighlight.offset]. Pass [Offset.Zero] for no pull or stretch.
+ * @param baseTranslationX Horizontal translation in pixels that the pull is added to, for elements
+ *   that already move, like a toggle thumb.
+ * @param baseTranslationY Vertical translation in pixels that the pull is added to.
+ * @param scaleXMultiplier Extra horizontal scale, such as [DampedAnimation.scaleX].
+ * @param scaleYMultiplier Extra vertical scale, such as [DampedAnimation.scaleY].
+ */
+fun GraphicsLayerScope.applyInteractiveAnimation(
     pressProgress: Float,
     offset: Offset,
     baseTranslationX: Float = 0f,

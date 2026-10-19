@@ -243,10 +243,10 @@ ensuring consistent behavior without manual system-theme checks in outer layouts
 
 ### Interaction Model
 
-All interactive components (Button, Slider, Toggle) share a common physics-based interaction system:
+All interactive components (Button, Slider, Toggle) share a common physics-based interaction system. All four pieces are public so custom components can reuse them (see `extra/Interaction.md`):
 
-1. **`DampedAnimation`** — Central animation driver with spring-physics for position, press feedback (scale), and velocity tracking. Uses `Job`-tracked coroutines to prevent stale animation conflicts on rapid successive interactions.
-2. **`inspectDragGestures`** — Low-level gesture detector that emits `onDragStart`, `onDrag`, `onDragEnd`, and `onDragCancel` callbacks without consuming pointer events (allowing parent scroll to still function).
+1. **`DampedAnimation`** — Central animation driver with spring-physics for position, press feedback (scale), and velocity tracking.
+2. **`inspectDragGestures`** — Low-level gesture detector that emits `onDragStart`, `onDrag`, `onDragEnd`, and `onDragCancel` callbacks without waiting for touch slop. It consumes the moves it reports.
 3. **`applyInteractiveAnimation`** — `graphicsLayer` extension that applies press-scale, translation, and feedback transforms in a single pass.
 4. **`InteractiveHighlight`** — Platform-specific glow/highlight effect (AGSL shader on Android).
 
@@ -303,6 +303,7 @@ Component documentation is maintained in `docs/components/` following a standard
 | `layout/SafeArea.md`       | System insets padding        |
 | `layout/ScrollView.md`     | Eager scrollable container   |
 | `layout/Theme.md`          | Theme composable             |
+| `extra/Interaction.md`     | Touch physics primitives     |
 | `extra/Motion.md`          | Motion language reference    |
 | `extra/Shape.md`           | Shape system + squircle math |
 
@@ -344,6 +345,6 @@ minimal refactoring.
 
 **Why `DampedAnimation` instead of `Animatable` directly?**
 `DampedAnimation` encapsulates the full interactive lifecycle (press → drag → release)
-with coordinated spring animations for position, scale, and velocity. It manages
-coroutine job tracking internally so components don't need to handle animation
-cancellation logic, preventing thumb-stuck bugs during rapid interactions.
+with coordinated spring animations for position, scale, and velocity. Components
+only call `press`, `release`, and `updateValue` and read the animated values, so
+the spring tuning lives in one place.
