@@ -144,6 +144,8 @@ consumed.
 
 For most tap surfaces, [Pressable](../primitives/Pressable.md) wires all of this for you. Use the
 pieces directly when you need a different layout of the same physics.
+[Build Your Own Component](../BUILD-YOUR-OWN-COMPONENT.md) walks through a full component on each
+layer.
 
 A tappable chip with the same press feel as `Button`, built by hand:
 
