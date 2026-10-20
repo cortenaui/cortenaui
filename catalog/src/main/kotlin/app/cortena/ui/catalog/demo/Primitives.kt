@@ -50,7 +50,7 @@ fun PrimitivesDemo() {
     Container(
         modifier = Modifier.fillMaxWidth(),
         shape = shape,
-        color = Color(colors.surface),
+        color = Color(colors.surfaceVariant),
         shadow = Shadow.Default,
         padding = padding,
     ) {

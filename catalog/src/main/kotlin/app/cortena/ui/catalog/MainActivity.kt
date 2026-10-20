@@ -10,6 +10,7 @@ import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.CompositionLocalProvider
@@ -98,7 +99,8 @@ class MainActivity : ComponentActivity() {
                     // Handle system back press
                     BackHandler(enabled = currentPage != null) { navigator.pop() }
 
-                    ScrollView {
+                    // Full screen, so the clip of a short page does not cut the last row's shadow
+                    ScrollView(modifier = Modifier.fillMaxSize()) {
                         SafeArea {
                             if (currentPage == null) {
                                 // Main menu

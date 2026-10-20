@@ -116,7 +116,9 @@ fun ScrollView(
 
     val indicatorScope = rememberCoroutineScope()
 
-    Box(modifier = safeModifier) {
+    // The viewport takes the ScrollView's full size, so short content is not clipped right under
+    // its last child (which would cut that child's shadow off)
+    Box(modifier = safeModifier, propagateMinConstraints = true) {
         val scrollModifier =
             if (orientation == Orientation.Vertical) {
                 Modifier.verticalScroll(

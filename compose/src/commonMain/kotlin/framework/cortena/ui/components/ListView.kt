@@ -5,6 +5,8 @@
 package framework.cortena.ui.components
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.interaction.collectIsPressedAsState
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -23,10 +25,12 @@ import framework.cortena.ui.typography.TextWeight
 /**
  * Tracker provided by [ListView] to each item via [LocalListItemLeadingTracker]. [ListItem] writes
  * to [hasLeading] during composition so that [ListView] can adjust the separator inset
- * automatically.
+ * automatically. [ListItem] also shares its press state through [interactionSource], so [ListView]
+ * can hide the separators next to a pressed row.
  */
 internal class ListItemLeadingTracker {
     var hasLeading: Boolean = false
+    val interactionSource = MutableInteractionSource()
 }
 
 /**
@@ -77,8 +81,12 @@ fun ListView(
                     .clip(RoundedShape(24.dp))
                     .background(Color(colors.surfaceVariant))
         ) {
+            val trackers =
+                remember(scope.items.size) { List(scope.items.size) { ListItemLeadingTracker() } }
+            val pressed = trackers.map { it.interactionSource.collectIsPressedAsState().value }
+
             scope.items.forEachIndexed { index, itemContent ->
-                val tracker = remember { ListItemLeadingTracker() }
+                val tracker = trackers[index]
                 tracker.hasLeading = false // reset before each composition
 
                 CompositionLocalProvider(LocalListItemLeadingTracker provides tracker) {
@@ -87,7 +95,12 @@ fun ListView(
 
                 if (index < scope.items.lastIndex) {
                     val startInset = if (tracker.hasLeading) 56.dp else 16.dp
-                    Separator(modifier = Modifier.padding(start = startInset, end = 16.dp))
+                    // A pressed row hides the separators on both of its edges
+                    val hidden = pressed[index] || pressed[index + 1]
+                    Separator(
+                        modifier = Modifier.padding(start = startInset, end = 16.dp),
+                        color = if (hidden) Color.Transparent else Color.Unspecified,
+                    )
                 }
             }
         }
