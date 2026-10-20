@@ -18,10 +18,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import framework.cortena.ui.components.Slider
 import framework.cortena.ui.components.Text
-import framework.cortena.ui.components.TextRole
 import framework.cortena.ui.components.Toggle
-import framework.cortena.ui.size.SizeToken
-import framework.cortena.ui.typography.TextWeight
 
 @Composable
 fun SliderDemo() {
@@ -56,17 +53,4 @@ fun SliderDemo() {
         steps = 3, // Creates 4 intervals between -2 and 2, meaning a step size of 1f.
         enabled = enable,
     )
-    Text("Sizes")
-    val sizeLabels = listOf("S", "M", "L")
-    SizeToken.entries.forEachIndexed { index, sizeToken ->
-        var sizeValue by remember { mutableFloatStateOf(0.5f) }
-        Text(sizeLabels[index], role = TextRole.BodySmall, weight = TextWeight.Medium)
-        Slider(
-            value = { sizeValue },
-            onValueChange = { sizeValue = it },
-            valueRange = 0f..1f,
-            size = sizeToken,
-            enabled = enable,
-        )
-    }
 }

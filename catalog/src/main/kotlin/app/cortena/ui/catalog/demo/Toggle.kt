@@ -15,10 +15,8 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.unit.dp
 import framework.cortena.ui.components.Text
 import framework.cortena.ui.components.Toggle
-import framework.cortena.ui.size.SizeToken
 import framework.cortena.ui.theme.LocalColors
 
 @Composable
@@ -53,16 +51,5 @@ fun ToggleDemo() {
             onCheckedChange = { customChecked = it },
             activeColor = Color(colors.primary),
         )
-    }
-    Text("Sizes")
-    Row(
-        modifier = Modifier.fillMaxWidth(),
-        horizontalArrangement = Arrangement.spacedBy(8.dp),
-        verticalAlignment = Alignment.CenterVertically,
-    ) {
-        SizeToken.entries.forEachIndexed { _, sizeToken ->
-            var checked by remember { mutableStateOf(true) }
-            Toggle(checked = checked, onCheckedChange = { checked = it }, size = sizeToken)
-        }
     }
 }

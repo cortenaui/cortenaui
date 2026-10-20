@@ -39,7 +39,6 @@ import framework.cortena.ui.primitives.DragTrack
 import framework.cortena.ui.shape.CapsuleShape
 import framework.cortena.ui.size.SizeToken
 import framework.cortena.ui.theme.LocalColors
-import framework.cortena.ui.theme.LocalSizeToken
 import framework.cortena.ui.theme.LocalSpacing
 import framework.cortena.ui.theme.sliderIndicatorWidth
 import framework.cortena.ui.theme.sliderTrackHeight
@@ -57,13 +56,14 @@ fun Slider(
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
     steps: Int = 0,
-    size: SizeToken = LocalSizeToken.current,
     indicatorColor: Color = Color.Unspecified,
     trackColor: Color = Color.Unspecified,
     progressColor: Color = Color.Unspecified,
 ) {
     val colors = LocalColors.current
     val spacing = LocalSpacing.current
+    // Slider has one size, the Small tier, and ignores LocalSizeToken
+    val size = SizeToken.Small
 
     val shape = CapsuleShape()
     val indicatorWidth = size.sliderIndicatorWidth
