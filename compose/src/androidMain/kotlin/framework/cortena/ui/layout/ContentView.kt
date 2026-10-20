@@ -10,6 +10,9 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.background
+import androidx.compose.foundation.gestures.Orientation as ScrollOrientation
+import androidx.compose.foundation.gestures.rememberScrollableState
+import androidx.compose.foundation.gestures.scrollable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
@@ -21,6 +24,7 @@ import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.luminance
@@ -30,6 +34,9 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.unit.dp
 import androidx.core.view.WindowCompat
 import framework.cortena.ui.color.Palette
+import framework.cortena.ui.geometry.Orientation
+import framework.cortena.ui.layout.internal.BounceOverscrollEffect
+import framework.cortena.ui.motion.LocalMotion
 import framework.cortena.ui.size.SizeToken
 import framework.cortena.ui.theme.LocalColors
 import framework.cortena.ui.theme.StatusBarIconMode
@@ -50,6 +57,7 @@ fun ComponentActivity.ContentView(
     fontFamily: FontFamily? = null,
     sizeToken: SizeToken = SizeToken.Medium,
     dynamicColor: Boolean = false,
+    overscroll: Boolean = true,
 
     // Slots
     appBar: (@Composable () -> Unit)? = null,
@@ -101,13 +109,35 @@ fun ComponentActivity.ContentView(
             val isAppBarVisible = appBar != null || appBarSlot.value != null
             val appBarPadding = if (isAppBarVisible) APP_BAR_HEIGHT_DEFAULT + 16.dp else 0.dp
 
+            // The page bounces even when nothing on it scrolls: the state consumes no delta, so
+            // every drag that reaches it becomes overscroll. A nested ScrollView that overflows
+            // takes the drag first and bounces on its own, so the page never bounces twice; one
+            // whose content fits leaves the drag to the page.
+            val pageOverscroll =
+                if (overscroll) {
+                    val motion = LocalMotion.current
+                    val bounceScope = rememberCoroutineScope()
+                    val bounce =
+                        remember(bounceScope, motion) {
+                            BounceOverscrollEffect(bounceScope, Orientation.Vertical, motion.smooth)
+                        }
+                    Modifier.scrollable(
+                            state = rememberScrollableState { 0f },
+                            orientation = ScrollOrientation.Vertical,
+                            overscrollEffect = bounce,
+                        )
+                        .then(bounce.overscroll)
+                } else {
+                    Modifier
+                }
+
             CompositionLocalProvider(
                 LocalAppBarSlot provides appBarSlot,
                 LocalAppBarPadding provides appBarPadding,
             ) {
                 Box(modifier = Modifier.fillMaxSize().background(Color(colors.surface))) {
                     Box(modifier = Modifier.fillMaxSize()) {
-                        content()
+                        Box(modifier = Modifier.fillMaxSize().then(pageOverscroll)) { content() }
                         if (appBar != null) {
                             appBar.invoke()
                         } else {

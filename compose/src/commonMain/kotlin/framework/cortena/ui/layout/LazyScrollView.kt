@@ -109,6 +109,10 @@ fun LazyScrollView(
             BounceOverscrollEffect(bounceScope, orientation, motion.smooth)
         }
 
+    // Same as ScrollView: content that fits leaves the drag to the parent.
+    val canScroll =
+        remember(state) { derivedStateOf { state.canScrollForward || state.canScrollBackward } }
+
     if (onFirstVisibleItemChanged != null) {
         LaunchedEffect(state, onFirstVisibleItemChanged) {
             snapshotFlow { state.firstVisibleItemIndex }.collect { onFirstVisibleItemChanged(it) }
@@ -140,7 +144,7 @@ fun LazyScrollView(
                 state = state,
                 contentPadding = contentPadding,
                 reverseLayout = reverseLayout,
-                userScrollEnabled = enabled,
+                userScrollEnabled = enabled && canScroll.value,
                 verticalArrangement = verticalArrangement,
                 horizontalAlignment = horizontalAlignment,
                 flingBehavior = flingBehavior,
@@ -153,7 +157,7 @@ fun LazyScrollView(
                 state = state,
                 contentPadding = contentPadding,
                 reverseLayout = reverseLayout,
-                userScrollEnabled = enabled,
+                userScrollEnabled = enabled && canScroll.value,
                 horizontalArrangement = horizontalArrangement,
                 verticalAlignment = verticalAlignment,
                 flingBehavior = flingBehavior,

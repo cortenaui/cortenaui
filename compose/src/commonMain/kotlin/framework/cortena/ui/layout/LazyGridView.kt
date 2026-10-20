@@ -103,6 +103,10 @@ fun LazyGridView(
             BounceOverscrollEffect(bounceScope, orientation, motion.smooth)
         }
 
+    // Same as ScrollView: content that fits leaves the drag to the parent.
+    val canScroll =
+        remember(state) { derivedStateOf { state.canScrollForward || state.canScrollBackward } }
+
     val cells = columns.toGridCells()
     val indicatorScope = rememberCoroutineScope()
 
@@ -114,7 +118,7 @@ fun LazyGridView(
                 state = state,
                 contentPadding = contentPadding,
                 reverseLayout = reverseLayout,
-                userScrollEnabled = enabled,
+                userScrollEnabled = enabled && canScroll.value,
                 verticalArrangement = verticalArrangement,
                 horizontalArrangement = horizontalArrangement,
                 flingBehavior = flingBehavior,
@@ -128,7 +132,7 @@ fun LazyGridView(
                 state = state,
                 contentPadding = contentPadding,
                 reverseLayout = reverseLayout,
-                userScrollEnabled = enabled,
+                userScrollEnabled = enabled && canScroll.value,
                 horizontalArrangement = horizontalArrangement,
                 verticalArrangement = verticalArrangement,
                 flingBehavior = flingBehavior,

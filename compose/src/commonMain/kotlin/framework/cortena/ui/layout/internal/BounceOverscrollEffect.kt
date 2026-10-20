@@ -202,8 +202,10 @@ internal class BounceOverscrollEffect(
         }
     }
 
-    override val isInProgress: Boolean
-        get() = overscrollOffset.value != 0f
+    // Always false: Compose grabs the next touch on a scrollable whose overscroll is in progress,
+    // which would steal taps and drags from the lists and controls under the finger until the
+    // release spring settles. A new drag on this scrollable still picks up the current offset.
+    override val isInProgress = false
 
     val overscroll: Modifier
         get() = Modifier.graphicsLayer {

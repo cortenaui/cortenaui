@@ -7,6 +7,7 @@
 - **Not a standard @Composable**: This function is equivalent to `setContent {}`. Therefore, it is called once during `onCreate()` in the `Activity`.
 - **Built-In Edge-to-Edge**: Directly calls `enableEdgeToEdge()` so the content spans across System Bars and Navigation Bars.
 - **Auto Theme Wrapping**: This function wraps its content in `Theme` directly to execute Dependency Injection for _Design Tokens_.
+- **Page Overscroll**: The page content bounces when dragged past its edge, even when it does not scroll. The `AppBar` stays pinned. A `ScrollView` whose content overflows bounces on its own instead, so the page never bounces twice. One whose content fits leaves the drag to the page. Controls that track their own drags, such as `Slider`, do not move the page. Turn it off for the whole app with `overscroll = false`.
 - **Status Bar Layering**: It uses the highest Compose z-index to render the `statusBarColor`, ensuring it remains visible even if you render a header (e.g. `AppBar`) that overlaps into the status bar insets.
 
 ## API Reference
@@ -22,6 +23,7 @@ fun ComponentActivity.ContentView(
     fontFamily: FontFamily? = null,
     sizeToken: SizeToken = SizeToken.Medium,
     dynamicColor: Boolean = false,
+    overscroll: Boolean = true,
     appBar: (@Composable () -> Unit)? = null,
     content: @Composable () -> Unit,
 )
@@ -50,5 +52,6 @@ enum class ThemeMode {
 | `typography`                      | `(() -> Typography)? = null -> DefaultTypography`             | Override the design's typography scale. Default: `DefaultTypography`.                                                                                   |
 | `fontFamily`                      | `FontFamily?`                                                 | Custom font family applied globally to all `Text` components. If `null`, uses the system default font (`FontFamily.Default`).                           |
 | `dynamicColor` **(Experimental)** | `Boolean`                                                     | Provides the dynamic color feature (Material You). Not fully implemented yet, currently only gives a warning in Logcat.                                 |
+| `overscroll`                      | `Boolean = true`                                              | When `true`, the page bounces when dragged past its edge, even if nothing on it scrolls. `false` turns it off app-wide.                                 |
 | `appBar`                          | `(@Composable () -> Unit)? = null`                            | A dedicated layout slot for the AppBar. Fills the slot provided in the topmost `Column`.                                                                |
 | `content`                         | `@Composable () -> Unit`                                      | The main content slot of your application (e.g., `Body`).                                                                                               |

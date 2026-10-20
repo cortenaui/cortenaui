@@ -99,6 +99,10 @@ fun ScrollView(
             BounceOverscrollEffect(bounceScope, orientation, motion.smooth)
         }
 
+    // Compose shows no overscroll when the state cannot scroll, so content that fits leaves the
+    // drag to the parent (the page bounce in ContentView) instead of swallowing it.
+    val userScrollEnabled = enabled && scrollState.maxValue > 0
+
     LaunchedEffect(scrollState) {
         snapshotFlow { scrollState.value }
             .collect { value ->
@@ -117,7 +121,7 @@ fun ScrollView(
             if (orientation == Orientation.Vertical) {
                 Modifier.verticalScroll(
                     state = scrollState,
-                    enabled = enabled,
+                    enabled = userScrollEnabled,
                     flingBehavior = flingBehavior,
                     reverseScrolling = reverseLayout,
                     overscrollEffect = overscrollEffect,
@@ -125,7 +129,7 @@ fun ScrollView(
             } else {
                 Modifier.horizontalScroll(
                     state = scrollState,
-                    enabled = enabled,
+                    enabled = userScrollEnabled,
                     flingBehavior = flingBehavior,
                     reverseScrolling = reverseLayout,
                     overscrollEffect = overscrollEffect,
