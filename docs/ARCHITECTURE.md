@@ -245,6 +245,10 @@ ensuring consistent behavior without manual system-theme checks in outer layouts
 2. Wraps content inside `Theme()` with the provided `themeMode`, `palette`, and `typography`.
 3. Manages status bar icon contrast (`StatusBarIconMode`) reactively via `SideEffect`.
 4. Renders an optional status bar color overlay and `appBar` slot above the main content.
+5. Wraps the page content (not the `appBar`) in a vertical bounce overscroll, unless
+   `overscroll = false`. Its scroll state consumes nothing, so every drag that reaches it bounces,
+   and a nested `ScrollView` that overflows bounces first. A scroll container whose content fits
+   does not take the drag, so the page bounce gets it.
 
 ## Component Design Patterns
 

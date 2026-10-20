@@ -112,6 +112,9 @@ fun <T> GridView(
             BounceOverscrollEffect(bounceScope, orientation, motion.smooth)
         }
 
+    // Same as ScrollView: content that fits leaves the drag to the parent.
+    val userScrollEnabled = enabled && scrollState.maxValue > 0
+
     LaunchedEffect(scrollState) {
         snapshotFlow { scrollState.value }
             .collect { value ->
@@ -138,14 +141,14 @@ fun <T> GridView(
                 if (orientation == Orientation.Vertical) {
                     Modifier.verticalScroll(
                         state = scrollState,
-                        enabled = enabled,
+                        enabled = userScrollEnabled,
                         flingBehavior = flingBehavior,
                         overscrollEffect = overscrollEffect,
                     )
                 } else {
                     Modifier.horizontalScroll(
                         state = scrollState,
-                        enabled = enabled,
+                        enabled = userScrollEnabled,
                         flingBehavior = flingBehavior,
                         overscrollEffect = overscrollEffect,
                     )
