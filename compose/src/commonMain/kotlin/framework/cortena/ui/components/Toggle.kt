@@ -159,24 +159,33 @@ fun Toggle(
                     role = Role.Switch
                     toggleableState = ToggleableState(checked)
                 }
-                .then(gestureModifier)
-                .graphicsLayer { alpha = if (enabled) 1f else 0.38f },
+                .then(gestureModifier),
         thumbPadding = thumbPadding,
         track = {
             Box(
                 modifier =
-                    Modifier.fillMaxSize().clip(shape).drawBehind {
-                        val progress = dampedAnimation.progress.fastCoerceIn(0f, 1f)
-                        drawRect(lerp(resolvedInactiveColor, resolvedActiveColor, progress))
-                    }
+                    Modifier.fillMaxSize()
+                        .clip(shape)
+                        .graphicsLayer { alpha = if (enabled) 1f else 0.38f }
+                        .drawBehind {
+                            val progress = dampedAnimation.progress.fastCoerceIn(0f, 1f)
+                            drawRect(lerp(resolvedInactiveColor, resolvedActiveColor, progress))
+                        }
             )
         },
         thumb = {
+            // The thumb fades by color, not by layer alpha: an alpha layer is drawn offscreen and
+            // would cut the thumb shadow off at the toggle's bounds.
             Container(
                 modifier = Modifier.size(thumbWidth, thumbHeight),
                 shape = shape,
-                color = resolvedThumbColor,
-                shadow = thumbShadow,
+                color =
+                    if (enabled) {
+                        resolvedThumbColor
+                    } else {
+                        lerp(Color(colors.surface), resolvedThumbColor, 0.38f)
+                    },
+                shadow = if (enabled) thumbShadow else thumbShadow.copy(alpha = 0.38f),
             )
         },
     )

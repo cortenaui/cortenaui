@@ -32,7 +32,7 @@ fun ListItem(
 | `subtitle` | `(@Composable () -> Unit)?`          | `null`     | Optional secondary text below the title.                       |
 | `leading`  | `(@Composable () -> Unit)?`          | `null`     | Content placed at the start of the item (e.g., Icon, avatar).  |
 | `trailing` | `(@Composable RowScope.() -> Unit)?` | `null`     | Content placed at the end of the item (e.g., Toggle, chevron). |
-| `onClick`  | `(() -> Unit)?`                      | `null`     | If provided, the item becomes clickable with this callback.    |
+| `onClick`  | `(() -> Unit)?`                      | `null`     | Makes the row clickable; pressed rows use the separator color. |
 
 ### Layout
 
