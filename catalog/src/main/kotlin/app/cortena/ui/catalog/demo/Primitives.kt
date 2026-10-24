@@ -4,7 +4,11 @@
  */
 package app.cortena.ui.catalog.demo
 
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -16,13 +20,20 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import framework.cortena.ui.annotation.ExperimentalComponentsApi
+import framework.cortena.ui.components.Button
 import framework.cortena.ui.components.Text
+import framework.cortena.ui.components.TextRole
+import framework.cortena.ui.graphics.glass.Glass
+import framework.cortena.ui.graphics.glass.GlassLayer
 import framework.cortena.ui.graphics.shadow.InnerShadow
 import framework.cortena.ui.graphics.shadow.Shadow
 import framework.cortena.ui.interaction.DampedAnimation
@@ -87,8 +98,59 @@ fun PrimitivesDemo() {
         Text("Disabled")
     }
 
+    Text("Glass")
+    GlassDemo()
+
     Text("DragTrack")
     LevelBar()
+}
+
+// Glass blurs only what a GlassLayer records, so the surfaces float over their own background
+@OptIn(ExperimentalComponentsApi::class)
+@Composable
+private fun GlassDemo() {
+    val colors = LocalColors.current
+    val spacing = LocalSpacing.current
+
+    GlassLayer(
+        background = {
+            Column(
+                modifier =
+                    Modifier.fillMaxWidth()
+                        .height(240.dp)
+                        .clip(RoundedShape(spacing.Lg.dp))
+                        .background(
+                            Brush.linearGradient(
+                                listOf(Color(colors.primary), Color(colors.accent))
+                            )
+                        ),
+                verticalArrangement = Arrangement.SpaceEvenly,
+                horizontalAlignment = Alignment.CenterHorizontally,
+            ) {
+                repeat(4) {
+                    Text(
+                        "Liquid glass",
+                        color = Color(colors.onPrimary),
+                        role = TextRole.HeadlineLarge,
+                    )
+                }
+            }
+        },
+        modifier = Modifier.fillMaxWidth(),
+    ) {
+        Row(
+            modifier = Modifier.align(Alignment.Center),
+            horizontalArrangement = Arrangement.spacedBy(spacing.Lg.dp),
+            verticalAlignment = Alignment.CenterVertically,
+        ) {
+            Container(
+                modifier = Modifier.size(144.dp),
+                shape = RoundedShape(spacing.Xl.dp),
+                glass = Glass(),
+            )
+            Button(onClick = {}) { Text("Glass") }
+        }
+    }
 }
 
 // A custom control built only from primitives: drag anywhere on the bar to move the thumb.

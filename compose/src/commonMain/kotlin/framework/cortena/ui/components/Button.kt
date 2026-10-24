@@ -18,6 +18,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.isSpecified
 import androidx.compose.ui.unit.dp
 import framework.cortena.ui.annotation.ExperimentalComponentsApi
+import framework.cortena.ui.graphics.glass.Glass
 import framework.cortena.ui.primitives.Pressable
 import framework.cortena.ui.shape.CapsuleShape
 import framework.cortena.ui.size.SizeToken
@@ -139,6 +140,8 @@ fun Button(
         interactive = interactive,
         shape = CapsuleShape(),
         color = backgroundColor,
+        // Blurred over an AppBar or a GlassLayer; inside the page itself, the fill plus a rim
+        glass = Glass(),
         padding =
             if (iconOnly) PaddingValues(spacing.Xs.dp)
             else PaddingValues(horizontal = size.horizontalPadding),

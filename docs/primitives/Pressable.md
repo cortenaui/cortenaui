@@ -26,6 +26,8 @@ Unlike `Container`, content is clipped to `shape`, so the glow stays inside the 
 
 When `enabled` is `false`, the surface renders at 38% alpha and ignores touches.
 
+Pass `glass` to turn the fill into liquid glass, as `Button` does. See [Glass](../extra/Glass.md).
+
 ## API Reference
 
 ```kotlin
@@ -42,6 +44,7 @@ fun Pressable(
     color: Color = Color.Unspecified,
     shadow: Shadow? = null,
     innerShadow: InnerShadow? = null,
+    glass: Glass? = null,
     padding: PaddingValues = PaddingValues(),
     contentAlignment: Alignment = Alignment.TopStart,
     content: @Composable BoxScope.() -> Unit,
@@ -62,6 +65,7 @@ fun Pressable(
 | `color`            | `Color`                           | `Color.Unspecified` | Fill color, also used to tune the highlight. Unspecified: none. |
 | `shadow`           | `Shadow?`                         | `null`              | Drop shadow outside `shape`.                                    |
 | `innerShadow`      | `InnerShadow?`                    | `null`              | Shadow inside `shape`, drawn over the content.                  |
+| `glass`            | `Glass?`                          | `null`              | Liquid glass under the content, tinted by `color`.              |
 | `padding`          | `PaddingValues`                   | `PaddingValues()`   | Space between the surface edge and the content.                 |
 | `contentAlignment` | `Alignment`                       | `TopStart`          | Alignment of the content inside the padding.                    |
 | `content`          | `@Composable BoxScope.() -> Unit` | —                   | Content, laid out like a `Box`.                                 |

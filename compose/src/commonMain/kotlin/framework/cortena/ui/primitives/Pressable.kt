@@ -20,6 +20,8 @@ import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.semantics.Role
 import framework.cortena.ui.annotation.ExperimentalComponentsApi
+import framework.cortena.ui.graphics.glass.Glass
+import framework.cortena.ui.graphics.glass.glass
 import framework.cortena.ui.graphics.shadow.InnerShadow
 import framework.cortena.ui.graphics.shadow.Shadow
 import framework.cortena.ui.interaction.InteractiveHighlight
@@ -42,10 +44,11 @@ import framework.cortena.ui.shape.RectangleShape
  * @param interactive When `false`, the surface keeps the highlight but skips the press motion.
  * @param role Accessibility role announced for the surface.
  * @param shape Outline shared by the fill, both shadows, the clip, and the highlight.
- * @param color Fill color. [Color.Unspecified] draws no fill. The highlight is tuned from the first
- *   value.
+ * @param color Fill color. [Color.Unspecified] draws no fill. With [glass], the tint of the glass.
+ *   The highlight is tuned from the first value.
  * @param shadow Drop shadow outside [shape], or `null` for none.
  * @param innerShadow Shadow inside [shape], drawn over the content, or `null` for none.
+ * @param glass Liquid glass under the content, or `null` for a plain fill. See [Modifier.glass].
  * @param padding Space between the surface edge and [content].
  * @param contentAlignment Alignment of [content] inside the padding.
  * @param content Content, laid out like a [Box].
@@ -63,6 +66,7 @@ fun Pressable(
     color: Color = Color.Unspecified,
     shadow: Shadow? = null,
     innerShadow: InnerShadow? = null,
+    glass: Glass? = null,
     padding: PaddingValues = PaddingValues(),
     contentAlignment: Alignment = Alignment.TopStart,
     content: @Composable BoxScope.() -> Unit,
@@ -86,7 +90,7 @@ fun Pressable(
                     }
                     alpha = if (enabled) 1f else 0.38f
                 }
-                .surface(shape, color, shadow, innerShadow)
+                .surface(shape, color, shadow, innerShadow, glass)
                 .clip(shape)
                 .then(if (enabled) highlight.gestureModifier else Modifier)
                 .combinedClickable(

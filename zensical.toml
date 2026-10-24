@@ -53,7 +53,7 @@ nav = [
       { "Layout" = [ "layout/ContentView.md", "layout/Theme.md", "layout/Body.md", "layout/SafeArea.md", "layout/ScrollView.md", "layout/LazyScrollView.md", "layout/GridView.md", "layout/LazyGridView.md" ] },
       { "Component" = [ "components/AppBar.md", "components/Button.md", "components/Icon.md", "components/ListItem.md", "components/ListView.md", "components/Separator.md", "components/Slider.md", "components/Text.md", "components/Toggle.md" ] },
       { "Primitives" = [ "primitives/Container.md", "primitives/Pressable.md", "primitives/DragTrack.md" ] },
-      { "Extra" = [ "extra/Interaction.md", "extra/Motion.md", "extra/Shape.md" ] }] },
+      { "Extra" = [ "extra/Interaction.md", "extra/Glass.md", "extra/Motion.md", "extra/Shape.md" ] }] },
   { "Contributing" = [ "PUBLISHING.md" ] }
 ]
 

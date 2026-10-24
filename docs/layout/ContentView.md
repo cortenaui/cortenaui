@@ -8,6 +8,7 @@
 - **Built-In Edge-to-Edge**: Directly calls `enableEdgeToEdge()` so the content spans across System Bars and Navigation Bars.
 - **Auto Theme Wrapping**: This function wraps its content in `Theme` directly to execute Dependency Injection for _Design Tokens_.
 - **Page Overscroll**: The page content bounces when dragged past its edge, even when it does not scroll. The `AppBar` stays pinned. A `ScrollView` whose content overflows bounces on its own instead, so the page never bounces twice. One whose content fits leaves the drag to the page. Controls that track their own drags, such as `Slider`, do not move the page. Turn it off for the whole app with `overscroll = false`.
+- **Glass Backdrop**: The page is the background of a [GlassLayer](../extra/Glass.md) and the AppBar floats over it, so glass in the AppBar blurs the content that scrolls under it.
 - **Status Bar Layering**: It uses the highest Compose z-index to render the `statusBarColor`, ensuring it remains visible even if you render a header (e.g. `AppBar`) that overlaps into the status bar insets.
 
 ## API Reference
