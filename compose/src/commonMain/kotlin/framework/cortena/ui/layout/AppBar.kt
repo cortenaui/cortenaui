@@ -30,17 +30,12 @@ import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.graphics.vector.path
 import androidx.compose.ui.unit.dp
-import framework.cortena.ui.color.ColorToken
 import framework.cortena.ui.components.Button
 import framework.cortena.ui.components.Icon
-import framework.cortena.ui.components.Text
-import framework.cortena.ui.components.TextRole
 import framework.cortena.ui.geometry.Alignment
 import framework.cortena.ui.navigation.LocalNavigator
 import framework.cortena.ui.size.SizeToken
 import framework.cortena.ui.theme.LocalColors
-import framework.cortena.ui.theme.LocalIsDark
-import framework.cortena.ui.theme.value
 
 internal val APP_BAR_HEIGHT_DEFAULT = 56.dp
 
@@ -59,6 +54,7 @@ private val CaretLeftIcon: ImageVector
                 defaultHeight = 24.dp,
                 viewportWidth = 256f,
                 viewportHeight = 256f,
+                autoMirror = true,
             )
             .apply {
                 path(fill = SolidColor(Color.Black)) { // Tint will override the black color
@@ -151,24 +147,15 @@ fun AppBar(
                     if (leading != null) {
                         leading()
                     } else if (canGoBack) {
-                        val isDark = LocalIsDark.current
+                        // Floats over the page, so its glass blurs the content scrolled under it
                         Button(
                             onClick = { navigator.pop() },
-                            background =
-                                if (isDark) ColorToken.Gray900.value()
-                                else ColorToken.Gray100.value(),
+                            iconOnly = true,
+                            size = SizeToken.Medium,
+                            background = Color(colors.surfaceVariant),
                             foreground = Color(colors.primary),
-                            size = SizeToken.Small,
                         ) {
-                            Icon(
-                                imageVector = CaretLeftIcon,
-                                contentDescription = "Back",
-                                size = 16.dp,
-                            )
-                            Text(
-                                text = navigator.previousTitle ?: "Back",
-                                role = TextRole.BodyMedium,
-                            )
+                            Icon(imageVector = CaretLeftIcon, contentDescription = "Back")
                         }
                     }
 

@@ -35,6 +35,7 @@ import androidx.compose.ui.unit.dp
 import androidx.core.view.WindowCompat
 import framework.cortena.ui.color.Palette
 import framework.cortena.ui.geometry.Orientation
+import framework.cortena.ui.graphics.glass.GlassLayer
 import framework.cortena.ui.layout.internal.BounceOverscrollEffect
 import framework.cortena.ui.motion.LocalMotion
 import framework.cortena.ui.size.SizeToken
@@ -135,9 +136,21 @@ fun ComponentActivity.ContentView(
                 LocalAppBarSlot provides appBarSlot,
                 LocalAppBarPadding provides appBarPadding,
             ) {
-                Box(modifier = Modifier.fillMaxSize().background(Color(colors.surface))) {
-                    Box(modifier = Modifier.fillMaxSize()) {
-                        Box(modifier = Modifier.fillMaxSize().then(pageOverscroll)) { content() }
+                Box(modifier = Modifier.fillMaxSize()) {
+                    // The page is recorded so the glass of the AppBar, floating over it, can blur
+                    // it
+                    GlassLayer(
+                        background = {
+                            Box(
+                                modifier = Modifier.fillMaxSize().background(Color(colors.surface))
+                            ) {
+                                Box(modifier = Modifier.fillMaxSize().then(pageOverscroll)) {
+                                    content()
+                                }
+                            }
+                        },
+                        modifier = Modifier.fillMaxSize(),
+                    ) {
                         if (appBar != null) {
                             appBar.invoke()
                         } else {

@@ -138,6 +138,12 @@ compose/src/commonMain/kotlin/framework/cortena/ui/
 │   ├── Text.kt              # semantic text with 12 TextRole variants × TextWeight
 │   └── Toggle.kt            # spring-animated switch with drag + tap
 ├── graphics/
+│   ├── glass/
+│   │   ├── Glass.kt                   # glass recipe (blur, refraction)
+│   │   ├── GlassLayer.kt              # records a background for the glass over it
+│   │   ├── GlassModifier.kt           # expect Modifier.glass
+│   │   └── internal/
+│   │       └── GlassBackdrop.kt       # recorded layer + position, glassSource modifier
 │   └── shadow/
 │       ├── Shadow.kt                  # shadow data class (radius, offset, color)
 │       ├── ShadowModifier.kt          # Modifier.componentShadow
@@ -180,6 +186,7 @@ compose/src/commonMain/kotlin/framework/cortena/ui/
 ```
 compose/src/androidMain/kotlin/framework/cortena/ui/
 ├── graphics/
+│   ├── glass/               # Modifier.glass: RenderEffect blur + AGSL refraction
 │   └── shadow/              # platform shadow rendering (RenderNode)
 ├── interaction/
 │   ├── InteractiveHighlight.kt       # Android-specific highlight with shader
@@ -295,6 +302,15 @@ The single documented exception is raw gesture-physics primitives — `DampedAni
 
 The `componentShadow` modifier renders drop shadows that remain visible during scale animations (unlike standard `Modifier.shadow` which clips at the original bounds). This is critical for interactive components like Toggle and Slider indicators.
 
+### Glass System
+
+`GlassLayer` records its background into a `GraphicsLayer` and draws it from there, so the
+recording costs no extra pass. Glass in its content reads that layer through an internal
+composition local and draws it into its own layer, mapped with `transformFrom` so press motion
+stays aligned, through a `RenderEffect` chain: saturation, blur, then an AGSL refraction shader.
+Glass inside the recorded background gets no layer and draws a plain fill, which avoids sampling
+itself. `ContentView` wraps every page in a `GlassLayer` with the AppBar on top.
+
 ## Documentation
 
 Component documentation is maintained in `docs/components/` following a standardized format:
@@ -322,6 +338,7 @@ Component documentation is maintained in `docs/components/` following a standard
 | `primitives/Pressable.md`  | Touchable surface primitive  |
 | `primitives/DragTrack.md`  | Track and thumb primitive    |
 | `extra/Interaction.md`     | Touch physics primitives     |
+| `extra/Glass.md`           | Liquid glass and GlassLayer  |
 | `extra/Motion.md`          | Motion language reference    |
 | `extra/Shape.md`           | Shape system + squircle math |
 

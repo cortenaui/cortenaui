@@ -20,6 +20,10 @@ example for an image in a rounded card.
 
 The inner shadow is drawn over the content, like light falling into a recessed well.
 
+Pass `glass` to turn the fill into liquid glass, with `color` as its tint. It blurs the content
+behind only inside a `GlassLayer` (an AppBar is one); elsewhere it draws a 90% fill plus a rim. See
+[Glass](../extra/Glass.md).
+
 ## API Reference
 
 ```kotlin
@@ -31,6 +35,7 @@ fun Container(
     color: Color = Color.Unspecified,
     shadow: Shadow? = null,
     innerShadow: InnerShadow? = null,
+    glass: Glass? = null,
     padding: PaddingValues = PaddingValues(),
     contentAlignment: Alignment = Alignment.TopStart,
     content: @Composable BoxScope.() -> Unit = {},
@@ -46,6 +51,7 @@ fun Container(
 | `color`            | `Color`                           | `Color.Unspecified` | Fill color. Unspecified draws no fill.                          |
 | `shadow`           | `Shadow?`                         | `null`              | Drop shadow outside `shape`.                                    |
 | `innerShadow`      | `InnerShadow?`                    | `null`              | Shadow inside `shape`, drawn over the content.                  |
+| `glass`            | `Glass?`                          | `null`              | Liquid glass under the content, tinted by `color`.              |
 | `padding`          | `PaddingValues`                   | `PaddingValues()`   | Space between the surface edge and the content.                 |
 | `contentAlignment` | `Alignment`                       | `TopStart`          | Alignment of the content inside the padding.                    |
 | `content`          | `@Composable BoxScope.() -> Unit` | `{}`                | Content, laid out like a `Box`.                                 |

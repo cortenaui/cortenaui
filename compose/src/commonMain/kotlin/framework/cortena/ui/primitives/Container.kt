@@ -14,6 +14,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import framework.cortena.ui.annotation.ExperimentalComponentsApi
+import framework.cortena.ui.graphics.glass.Glass
+import framework.cortena.ui.graphics.glass.glass
 import framework.cortena.ui.graphics.shadow.InnerShadow
 import framework.cortena.ui.graphics.shadow.Shadow
 import framework.cortena.ui.primitives.internal.surface
@@ -25,9 +27,10 @@ import framework.cortena.ui.shape.RectangleShape
  *
  * @param modifier Applied outside the shadow, so size modifiers set the surface size.
  * @param shape Outline shared by the fill and both shadows.
- * @param color Fill color. [Color.Unspecified] draws no fill.
+ * @param color Fill color. [Color.Unspecified] draws no fill. With [glass], the tint of the glass.
  * @param shadow Drop shadow outside [shape], or `null` for none.
  * @param innerShadow Shadow inside [shape], drawn over the content, or `null` for none.
+ * @param glass Liquid glass under the content, or `null` for a plain fill. See [Modifier.glass].
  * @param padding Space between the surface edge and [content].
  * @param contentAlignment Alignment of [content] inside the padding.
  * @param content Content, laid out like a [Box].
@@ -40,12 +43,13 @@ fun Container(
     color: Color = Color.Unspecified,
     shadow: Shadow? = null,
     innerShadow: InnerShadow? = null,
+    glass: Glass? = null,
     padding: PaddingValues = PaddingValues(),
     contentAlignment: Alignment = Alignment.TopStart,
     content: @Composable BoxScope.() -> Unit = {},
 ) {
     Box(
-        modifier = modifier.surface(shape, color, shadow, innerShadow).padding(padding),
+        modifier = modifier.surface(shape, color, shadow, innerShadow, glass).padding(padding),
         contentAlignment = contentAlignment,
         content = content,
     )
