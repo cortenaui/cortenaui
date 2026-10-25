@@ -4,7 +4,6 @@
  */
 package framework.cortena.ui.components
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.interaction.collectIsPressedAsState
 import androidx.compose.foundation.layout.Column
@@ -15,8 +14,16 @@ import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.drawWithCache
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Path
+import androidx.compose.ui.graphics.addOutline
+import androidx.compose.ui.graphics.drawOutline
+import androidx.compose.ui.graphics.drawscope.clipPath
+import androidx.compose.ui.layout.onPlaced
+import androidx.compose.ui.layout.positionInParent
 import androidx.compose.ui.unit.dp
 import framework.cortena.ui.shape.RoundedShape
 import framework.cortena.ui.theme.LocalColors
@@ -26,11 +33,14 @@ import framework.cortena.ui.typography.TextWeight
  * Tracker provided by [ListView] to each item via [LocalListItemLeadingTracker]. [ListItem] writes
  * to [hasLeading] during composition so that [ListView] can adjust the separator inset
  * automatically. [ListItem] also shares its press state through [interactionSource], so [ListView]
- * can hide the separators next to a pressed row.
+ * can hide the separators next to a pressed row and draw its highlight in the card shape, at [top]
+ * and [height].
  */
 internal class ListItemLeadingTracker {
     var hasLeading: Boolean = false
     val interactionSource = MutableInteractionSource()
+    var top: Float = 0f
+    var height: Float = 0f
 }
 
 /**
@@ -75,22 +85,51 @@ fun ListView(
             )
         }
 
+        val trackers =
+            remember(scope.items.size) { List(scope.items.size) { ListItemLeadingTracker() } }
+        val pressed = trackers.map { it.interactionSource.collectIsPressedAsState().value }
+        val cardShape = RoundedShape(24.dp)
+        val cardColor = Color(colors.surfaceVariant)
+        val highlightColor = Color(colors.outlineVariant)
+
         Column(
             modifier =
                 Modifier.fillMaxWidth()
-                    .clip(RoundedShape(24.dp))
-                    .background(Color(colors.surfaceVariant))
+                    // Draws the card instead of clipping to it, so a row's overflow, such as a
+                    // pressed Toggle thumb and its shadow, stays visible. Only the highlight clips.
+                    .drawWithCache {
+                        val outline = cardShape.createOutline(size, layoutDirection, this)
+                        val cardPath = Path().apply { addOutline(outline) }
+                        onDrawBehind {
+                            drawOutline(outline, cardColor)
+                            clipPath(cardPath) {
+                                trackers.forEachIndexed { index, tracker ->
+                                    if (pressed[index]) {
+                                        drawRect(
+                                            color = highlightColor,
+                                            topLeft = Offset(0f, tracker.top),
+                                            size = Size(size.width, tracker.height),
+                                        )
+                                    }
+                                }
+                            }
+                        }
+                    }
         ) {
-            val trackers =
-                remember(scope.items.size) { List(scope.items.size) { ListItemLeadingTracker() } }
-            val pressed = trackers.map { it.interactionSource.collectIsPressedAsState().value }
-
             scope.items.forEachIndexed { index, itemContent ->
                 val tracker = trackers[index]
                 tracker.hasLeading = false // reset before each composition
 
-                CompositionLocalProvider(LocalListItemLeadingTracker provides tracker) {
-                    itemContent()
+                Column(
+                    modifier =
+                        Modifier.onPlaced {
+                            tracker.top = it.positionInParent().y
+                            tracker.height = it.size.height.toFloat()
+                        }
+                ) {
+                    CompositionLocalProvider(LocalListItemLeadingTracker provides tracker) {
+                        itemContent()
+                    }
                 }
 
                 if (index < scope.items.lastIndex) {
