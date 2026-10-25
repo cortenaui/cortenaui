@@ -81,12 +81,16 @@ fun Toggle(
     val resolvedThumbColor = if (thumbColor.isSpecified) thumbColor else Color.White
     val thumbShadow = thumbShadow(resolvedThumbColor, enabled)
 
-    // Disabled dims the track. On a dark theme the inactive gray would fade into the background, so
-    // only the active color dims there.
+    // Disabled dims the track. On a dark theme the full dim would fade the inactive gray into the
+    // background, so it dims less there.
     val isDark = LocalIsDark.current
     val trackActiveColor = if (enabled) resolvedActiveColor else resolvedActiveColor.disabled()
     val trackInactiveColor =
-        if (enabled || isDark) resolvedInactiveColor else resolvedInactiveColor.disabled()
+        when {
+            enabled -> resolvedInactiveColor
+            isDark -> resolvedInactiveColor.copy(alpha = resolvedInactiveColor.alpha * 0.6f)
+            else -> resolvedInactiveColor.disabled()
+        }
 
     val layoutDirection = LocalLayoutDirection.current
     val isLtr = layoutDirection == LayoutDirection.Ltr
@@ -187,9 +191,10 @@ fun Toggle(
                 color =
                     when {
                         enabled -> resolvedThumbColor
-                        // See-through on a dark track. On a light theme it would take on the pale
-                        // track's tint, so it fades toward the surface instead.
-                        isDark -> resolvedThumbColor.disabled()
+                        // See-through on a dark track, and fainter than the usual 0.38 so it
+                        // stands apart from the enabled thumb. On a light theme it would take on
+                        // the pale track's tint, so it fades toward the surface instead.
+                        isDark -> resolvedThumbColor.copy(alpha = resolvedThumbColor.alpha * 0.25f)
                         else -> lerp(Color(colors.surface), resolvedThumbColor, 0.38f)
                     },
                 shadow = if (enabled) thumbShadow else thumbShadow.copy(alpha = 0.38f),
