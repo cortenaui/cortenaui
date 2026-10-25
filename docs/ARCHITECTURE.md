@@ -120,7 +120,9 @@ motion/src/commonMain/kotlin/framework/cortena/ui/motion/
 Compose wrappers and theme layer. Depends on `:foundation`, `:shape`, and `:motion`.
 Converts foundation tokens (`Long`/`Float`) to Compose types (`Color`, `TextUnit`, `Dp`).
 Provides `Theme { }` entry point via `CompositionLocalProvider`, which also injects
-`LocalMotion` for the spring / duration / easing language.
+`LocalMotion` for the spring / duration / easing language. The default typeface, Inter, ships as two
+variable fonts in `compose/src/commonMain/composeResources/font/` through Compose Multiplatform
+resources (`components-resources`).
 
 The module is split into `commonMain` (multiplatform-ready) and `androidMain` (Android-specific platform code).
 

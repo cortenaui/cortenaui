@@ -18,6 +18,8 @@ kotlin {
         minSdk = libs.versions.androidMinSdk.get().toInt()
         compilerOptions { jvmTarget = JvmTarget.JVM_11 }
         withHostTest {}
+        // Packs composeResources (the Inter font) into the AAR as Android assets
+        androidResources.enable = true
     }
 
     sourceSets {
@@ -28,10 +30,13 @@ kotlin {
             implementation(libs.compose.runtime)
             implementation(libs.compose.foundation)
             implementation(libs.compose.ui)
+            implementation(libs.compose.components.resources)
         }
         androidMain.dependencies { implementation(libs.androidx.activity.compose) }
     }
 }
+
+compose.resources { packageOfResClass = "framework.cortena.ui.compose.resources" }
 
 mavenPublishing {
     publishToMavenCentral(automaticRelease = false)

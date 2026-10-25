@@ -20,10 +20,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.font.Font
-import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.text.font.FontStyle
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import app.cortena.ui.catalog.demo.ButtonDemo
 import app.cortena.ui.catalog.demo.ColorDemo
@@ -71,28 +67,7 @@ class MainActivity : ComponentActivity() {
                 }
             }
 
-        ContentView(
-            themeMode = { themeMode.value },
-            fontFamily =
-                FontFamily(
-                    Font(R.font.generalsans_extralight, FontWeight.ExtraLight),
-                    Font(
-                        R.font.generalsans_extralight_italic,
-                        FontWeight.ExtraLight,
-                        FontStyle.Italic,
-                    ),
-                    Font(R.font.generalsans_light, FontWeight.Light),
-                    Font(R.font.generalsans_light_italic, FontWeight.Light, FontStyle.Italic),
-                    Font(R.font.generalsans_regular, FontWeight.Normal),
-                    Font(R.font.generalsans_italic, FontWeight.Normal, FontStyle.Italic),
-                    Font(R.font.generalsans_medium, FontWeight.Medium),
-                    Font(R.font.generalsans_medium_italic, FontWeight.Medium, FontStyle.Italic),
-                    Font(R.font.generalsans_semibold, FontWeight.SemiBold),
-                    Font(R.font.generalsans_semibold_italic, FontWeight.SemiBold, FontStyle.Italic),
-                    Font(R.font.generalsans_bold, FontWeight.Bold),
-                    Font(R.font.generalsans_bold_italic, FontWeight.Bold, FontStyle.Italic),
-                ),
-        ) {
+        ContentView(themeMode = { themeMode.value }) {
             CompositionLocalProvider(LocalNavigator provides navigator) {
                 Body {
                     // Handle system back press

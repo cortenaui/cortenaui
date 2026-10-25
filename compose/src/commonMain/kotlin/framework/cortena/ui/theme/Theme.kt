@@ -8,9 +8,14 @@ import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontStyle
+import androidx.compose.ui.text.font.FontWeight
 import framework.cortena.ui.color.DarkPalette
 import framework.cortena.ui.color.LightPalette
 import framework.cortena.ui.color.Palette
+import framework.cortena.ui.compose.resources.Res
+import framework.cortena.ui.compose.resources.inter
+import framework.cortena.ui.compose.resources.inter_italic
 import framework.cortena.ui.motion.DefaultMotion
 import framework.cortena.ui.motion.LocalMotion
 import framework.cortena.ui.motion.Motion
@@ -18,6 +23,7 @@ import framework.cortena.ui.size.SizeToken
 import framework.cortena.ui.spacing.Spacing
 import framework.cortena.ui.typography.DefaultTypography
 import framework.cortena.ui.typography.Typography
+import org.jetbrains.compose.resources.Font
 
 @Composable
 fun Theme(
@@ -37,7 +43,7 @@ fun Theme(
         }
 
     val resolvedPalette = palette ?: if (isDark) DarkPalette else LightPalette
-    val resolvedFontFamily = fontFamily ?: FontFamily.Default
+    val resolvedFontFamily = fontFamily ?: interFontFamily()
 
     CompositionLocalProvider(
         LocalIsDark provides isDark,
@@ -50,3 +56,15 @@ fun Theme(
         content = content,
     )
 }
+
+// Inter, the default typeface. One variable file per style covers every weight from 100 to 900.
+@Composable
+private fun interFontFamily(): FontFamily =
+    FontFamily(
+        (100..900 step 100).flatMap { weight ->
+            listOf(
+                Font(Res.font.inter, FontWeight(weight)),
+                Font(Res.font.inter_italic, FontWeight(weight), FontStyle.Italic),
+            )
+        }
+    )
