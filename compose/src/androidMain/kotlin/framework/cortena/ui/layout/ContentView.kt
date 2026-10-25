@@ -37,12 +37,14 @@ import framework.cortena.ui.color.Palette
 import framework.cortena.ui.geometry.Orientation
 import framework.cortena.ui.graphics.glass.GlassLayer
 import framework.cortena.ui.layout.internal.BounceOverscrollEffect
+import framework.cortena.ui.layout.internal.rememberThemeCrossfade
 import framework.cortena.ui.motion.LocalMotion
 import framework.cortena.ui.size.SizeToken
 import framework.cortena.ui.theme.LocalColors
 import framework.cortena.ui.theme.StatusBarIconMode
 import framework.cortena.ui.theme.Theme
 import framework.cortena.ui.theme.ThemeMode
+import framework.cortena.ui.theme.isDark
 import framework.cortena.ui.typography.DefaultTypography
 import framework.cortena.ui.typography.Typography
 
@@ -75,9 +77,11 @@ fun ComponentActivity.ContentView(
         val currentThemeMode = themeMode()
         val currentStatusBarColor = statusBarColor()
         val currentStatusBarIconMode = statusBarIconMode()
+        // A theme change fades over the old theme instead of jumping
+        val crossfade = rememberThemeCrossfade(currentThemeMode.isDark())
 
         Theme(
-            themeMode = currentThemeMode,
+            themeMode = if (crossfade.isDark) ThemeMode.Dark else ThemeMode.Light,
             palette = palette,
             typography = typography,
             fontFamily = fontFamily,
@@ -136,7 +140,7 @@ fun ComponentActivity.ContentView(
                 LocalAppBarSlot provides appBarSlot,
                 LocalAppBarPadding provides appBarPadding,
             ) {
-                Box(modifier = Modifier.fillMaxSize()) {
+                Box(modifier = Modifier.fillMaxSize().then(crossfade.modifier)) {
                     // The page is recorded so the glass of the AppBar, floating over it, can blur
                     // it
                     GlassLayer(
