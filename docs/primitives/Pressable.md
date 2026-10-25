@@ -53,22 +53,22 @@ fun Pressable(
 
 ### Parameters
 
-| Name               | Type                              | Default             | Description                                                     |
-| ------------------ | --------------------------------- | ------------------- | --------------------------------------------------------------- |
-| `onClick`          | `() -> Unit`                      | —                   | Called on tap.                                                  |
-| `modifier`         | `Modifier`                        | `Modifier`          | Applied outside the press motion and the shadow.                |
-| `enabled`          | `Boolean`                         | `true`              | When `false`, touches are ignored and alpha drops to 38%.       |
-| `onLongClick`      | `(() -> Unit)?`                   | `null`              | Called on long press. `null` treats a long press as a tap.      |
-| `interactive`      | `Boolean`                         | `true`              | When `false`, keeps the highlight but skips the press motion.   |
-| `role`             | `Role`                            | `Role.Button`       | Accessibility role announced for the surface.                   |
-| `shape`            | `Shape`                           | `RectangleShape`    | Outline for the fill, shadows, clip, and highlight.             |
-| `color`            | `Color`                           | `Color.Unspecified` | Fill color, also used to tune the highlight. Unspecified: none. |
-| `shadow`           | `Shadow?`                         | `null`              | Drop shadow outside `shape`.                                    |
-| `innerShadow`      | `InnerShadow?`                    | `null`              | Shadow inside `shape`, drawn over the content.                  |
-| `glass`            | `Glass?`                          | `null`              | Liquid glass under the content, tinted by `color`.              |
-| `padding`          | `PaddingValues`                   | `PaddingValues()`   | Space between the surface edge and the content.                 |
-| `contentAlignment` | `Alignment`                       | `TopStart`          | Alignment of the content inside the padding.                    |
-| `content`          | `@Composable BoxScope.() -> Unit` | —                   | Content, laid out like a `Box`.                                 |
+| Name               | Type                              | Default             | Description                                                                  |
+| ------------------ | --------------------------------- | ------------------- | ---------------------------------------------------------------------------- |
+| `onClick`          | `() -> Unit`                      | —                   | Called on tap.                                                               |
+| `modifier`         | `Modifier`                        | `Modifier`          | Applied outside the press motion and the shadow.                             |
+| `enabled`          | `Boolean`                         | `true`              | When `false`, touches are ignored and alpha drops to 38%.                    |
+| `onLongClick`      | `(() -> Unit)?`                   | `null`              | Called on long press. `null` treats a long press as a tap.                   |
+| `interactive`      | `Boolean`                         | `true`              | When `false`, keeps the highlight but skips the press motion.                |
+| `role`             | `Role`                            | `Role.Button`       | Accessibility role announced for the surface.                                |
+| `shape`            | `Shape`                           | `RectangleShape`    | Outline for the fill, shadows, clip, and highlight.                          |
+| `color`            | `Color`                           | `Color.Unspecified` | Fill color, also used to tune the highlight. Unspecified: none.              |
+| `shadow`           | `Shadow?`                         | `null`              | Drop shadow outside `shape`. Floating glass: see [Glass](../extra/Glass.md). |
+| `innerShadow`      | `InnerShadow?`                    | `null`              | Shadow inside `shape`, drawn over the content.                               |
+| `glass`            | `Glass?`                          | `null`              | Liquid glass under the content, tinted by `color`.                           |
+| `padding`          | `PaddingValues`                   | `PaddingValues()`   | Space between the surface edge and the content.                              |
+| `contentAlignment` | `Alignment`                       | `TopStart`          | Alignment of the content inside the padding.                                 |
+| `content`          | `@Composable BoxScope.() -> Unit` | —                   | Content, laid out like a `Box`.                                              |
 
 ## Examples
 
