@@ -35,13 +35,7 @@ fun Theme(
     motion: Motion = DefaultMotion,
     content: @Composable () -> Unit,
 ) {
-    val isDark =
-        when (themeMode) {
-            ThemeMode.Light -> false
-            ThemeMode.Dark -> true
-            ThemeMode.Auto -> isSystemInDarkTheme()
-        }
-
+    val isDark = themeMode.isDark()
     val resolvedPalette = palette ?: if (isDark) DarkPalette else LightPalette
     val resolvedFontFamily = fontFamily ?: interFontFamily()
 
@@ -56,6 +50,14 @@ fun Theme(
         content = content,
     )
 }
+
+@Composable
+internal fun ThemeMode.isDark(): Boolean =
+    when (this) {
+        ThemeMode.Light -> false
+        ThemeMode.Dark -> true
+        ThemeMode.Auto -> isSystemInDarkTheme()
+    }
 
 // Inter, the default typeface. One variable file per style covers every weight from 100 to 900.
 @Composable
