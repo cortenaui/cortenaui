@@ -4,33 +4,21 @@
  */
 package app.cortena.ui.catalog.demo
 
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
+import app.cortena.ui.catalog.ToggleListView
 import framework.cortena.ui.components.Slider
 import framework.cortena.ui.components.Text
-import framework.cortena.ui.components.Toggle
 
 @Composable
 fun SliderDemo() {
     var enable by remember { mutableStateOf(true) }
-    Row(
-        modifier = Modifier.fillMaxWidth(),
-        horizontalArrangement = Arrangement.SpaceBetween,
-        verticalAlignment = Alignment.CenterVertically,
-    ) {
-        Text("Enable Slider")
-        Toggle(checked = enable, onCheckedChange = { enable = it })
-    }
+    ToggleListView(title = "Enable Slider", checked = enable, onCheckedChange = { enable = it })
     var sliderValue by remember { mutableFloatStateOf(0f) }
     Text("Slider")
     Column {

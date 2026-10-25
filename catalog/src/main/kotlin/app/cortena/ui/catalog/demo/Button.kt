@@ -16,6 +16,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import app.cortena.ui.catalog.ToggleListView
 import framework.cortena.icons.PhosphorIcon
 import framework.cortena.icons.PhosphorIcons
 import framework.cortena.ui.color.ColorToken
@@ -24,21 +25,13 @@ import framework.cortena.ui.components.ButtonStyle
 import framework.cortena.ui.components.ButtonVariant
 import framework.cortena.ui.components.Icon
 import framework.cortena.ui.components.Text
-import framework.cortena.ui.components.Toggle
 import framework.cortena.ui.size.SizeToken
 import framework.cortena.ui.theme.value
 
 @Composable
 fun ButtonDemo() {
     var enable by remember { mutableStateOf(true) }
-    Row(
-        modifier = Modifier.fillMaxWidth(),
-        horizontalArrangement = Arrangement.SpaceBetween,
-        verticalAlignment = Alignment.CenterVertically,
-    ) {
-        Text("Enable Button")
-        Toggle(checked = enable, onCheckedChange = { enable = it })
-    }
+    ToggleListView(title = "Enable Button", checked = enable, onCheckedChange = { enable = it })
     Text("Button Default")
     Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(12.dp)) {
         Button(enabled = enable, style = ButtonStyle.Primary) { Text("Primary") }
