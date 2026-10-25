@@ -57,7 +57,7 @@ foundation/src/commonMain/kotlin/framework/cortena/ui/
 │   ├── SizeToken.kt          # Small / Medium / Large
 │   └── SizeScale.kt          # raw dp Float values per tier (Small/Large derived from Medium via √φ)
 ├── typography/
-│   ├── TextWeight.kt         # Default / Medium / Bold
+│   ├── TextWeight.kt         # Default / Medium / SemiBold / Bold
 │   ├── TypeScale.kt          # golden-ratio derived sp values (anchor BodyMedium = 14)
 │   └── Typography.kt         # semantic roles (bodyMedium, titleLarge...)
 └── spacing/
