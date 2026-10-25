@@ -104,6 +104,8 @@ fun Toggle(
 
     val dampedAnimation =
         remember(animationScope) {
+            // The state last reported in this gesture
+            var gestureChecked = false
             DampedAnimation(
                 animationScope = animationScope,
                 initialValue = if (checked) 1f else 0f,
@@ -112,13 +114,15 @@ fun Toggle(
                 initialScale = 1f,
                 // With the press growth from DragTrack, the thumb swells to about 1.5x
                 pressedScale = 1.3f,
-                onDragStarted = {},
+                onDragStarted = { gestureChecked = currentChecked },
                 onDragStopped = {
-                    val target = if (didDrag) targetValue >= 0.5f else !currentChecked
+                    if (!didDrag) {
+                        gestureChecked = !currentChecked
+                        currentOnCheckedChange?.invoke(gestureChecked)
+                    }
                     didDrag = false
-                    currentOnCheckedChange?.invoke(target)
                     // Moves before release() checks, so the thumb stays swollen until it lands
-                    updateValue(if (target) 1f else 0f)
+                    updateValue(if (gestureChecked) 1f else 0f)
                 },
                 onDrag = { size, dragAmount ->
                     if (!didDrag) {
@@ -128,8 +132,17 @@ fun Toggle(
                     val travel = size.width * thumbTravel
                     if (travel > 0) {
                         val delta = dragAmount.x / travel
-                        val newProgress = if (isLtr) targetValue + delta else targetValue - delta
-                        updateValue(newProgress.fastCoerceIn(0f, 1f))
+                        val newProgress =
+                            (if (isLtr) targetValue + delta else targetValue - delta).fastCoerceIn(
+                                0f,
+                                1f,
+                            )
+                        updateValue(newProgress)
+                        // The state changes as the thumb crosses the middle, with the track color
+                        if ((newProgress >= 0.5f) != gestureChecked) {
+                            gestureChecked = !gestureChecked
+                            currentOnCheckedChange?.invoke(gestureChecked)
+                        }
                     }
                 },
             )
@@ -139,7 +152,8 @@ fun Toggle(
         snapshotFlow { checked }
             .collectLatest { isChecked ->
                 val target = if (isChecked) 1f else 0f
-                if (dampedAnimation.targetValue != target) {
+                // A drag reports its state on the way, and the thumb stays under the finger
+                if (!didDrag && dampedAnimation.targetValue != target) {
                     // A change from outside, such as a shared state, swells the thumb while it
                     // travels too
                     if (enabled) dampedAnimation.press()
