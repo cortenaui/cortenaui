@@ -38,7 +38,7 @@ fun Toggle(
 | `modifier`        | `Modifier`             | Standard Compose modifier.                                                          |
 | `enabled`         | `Boolean`              | Disables clicks, gestures, and dims the toggle visually with an alpha when `false`. |
 | `activeColor`     | `Color`                | Track background color when active (`checked = true`). Default: success.            |
-| `inactiveColor`   | `Color`                | Track background color when inactive (`checked = false`). Default: surface variant. |
+| `inactiveColor`   | `Color`                | Track background color when inactive (`checked = false`). Default: outline variant. |
 | `thumbColor`      | `Color`                | Color of the sliding inner thumb capsule. Default: white.                           |
 
 ### Example

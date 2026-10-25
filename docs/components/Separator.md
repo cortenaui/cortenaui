@@ -8,7 +8,7 @@ The component is a clean line with:
 
 - Support for both **Horizontal** and **Vertical** orientations.
 - Configurable **thickness** and **indents** (insets) on both ends of the separator.
-- Automatic integration with Cortena's theme, defaulting to the semantic `outlineVariant` color role for a clean, non-intrusive appearance.
+- Automatic integration with Cortena's theme, defaulting to the semantic `outlineVariant` color role at 60% opacity for a clean, non-intrusive appearance.
 
 ## API Reference
 
@@ -30,7 +30,7 @@ fun Separator(
 | `modifier`    | `Modifier`    | Standard Compose modifier.                                                                                     |
 | `orientation` | `Orientation` | Layout direction: `Orientation.Horizontal` or `Orientation.Vertical`. Default: `Orientation.Horizontal`.       |
 | `thickness`   | `Dp`          | Line thickness. Default: `1.dp`.                                                                               |
-| `color`       | `Color`       | Color of the separator line. Defaults to semantic `outlineVariant` from current theme palette.                 |
+| `color`       | `Color`       | Color of the separator line. Defaults to semantic `outlineVariant` at 60% opacity.                             |
 | `indent`      | `Dp`          | Padding applied at both ends of the line (start/end for horizontal, top/bottom for vertical). Default: `0.dp`. |
 
 ### Example

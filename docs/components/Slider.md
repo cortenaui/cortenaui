@@ -42,7 +42,7 @@ fun Slider(
 | `enabled`        | `Boolean`                         | Disables drag and gesture effects when `false`.                                                                    |
 | `steps`          | `Int`                             | Number of discrete steps (tick marks) evenly distributed across the track. If 0, behaves continuously. Default: 0. |
 | `indicatorColor` | `Color`                           | Indicator pill color. Default: white.                                                                              |
-| `trackColor`     | `Color`                           | Track color. Default: surface variant.                                                                             |
+| `trackColor`     | `Color`                           | Track color. Default: outline variant.                                                                             |
 | `progressColor`  | `Color`                           | Filled progress color. Default: primary.                                                                           |
 
 ### Example

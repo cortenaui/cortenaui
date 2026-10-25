@@ -93,14 +93,14 @@ val LightPalette =
         errorContainer = ColorToken.Red100.resolve(isDark = false),
         onErrorContainer = ColorToken.Red800.resolve(isDark = false),
 
-        // Background & Surface
-        background = ColorToken.White.light,
+        // Background & Surface: a gray page under white cards
+        background = ColorToken.Gray50.resolve(isDark = false),
         onBackground = ColorToken.Gray950.resolve(isDark = false),
-        surface = ColorToken.White.light,
+        surface = ColorToken.Gray50.resolve(isDark = false),
         onSurface = ColorToken.Gray900.resolve(isDark = false),
 
         // surfaceVariant
-        surfaceVariant = 0xFFF2F2F7,
+        surfaceVariant = ColorToken.White.light,
         onSurfaceVariant = ColorToken.Gray600.resolve(isDark = false),
 
         // Inverse
@@ -161,7 +161,7 @@ val DarkPalette =
         onSurface = ColorToken.Gray100.resolve(isDark = true),
 
         // surfaceVariant
-        surfaceVariant = 0xFF1C1C1E,
+        surfaceVariant = ColorToken.Gray900.resolve(isDark = true),
         onSurfaceVariant = ColorToken.Gray400.resolve(isDark = true),
 
         // Inverse
