@@ -25,24 +25,17 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import app.cortena.ui.catalog.ToggleListView
 import framework.cortena.ui.components.Slider
 import framework.cortena.ui.components.Text
 import framework.cortena.ui.components.TextRole
-import framework.cortena.ui.components.Toggle
 import framework.cortena.ui.theme.LocalColors
 
 @Composable
 fun TypographyDemo() {
     val colors = LocalColors.current
     var italic by remember { mutableStateOf(false) }
-    Row(
-        modifier = Modifier.fillMaxWidth(),
-        horizontalArrangement = Arrangement.SpaceBetween,
-        verticalAlignment = Alignment.CenterVertically,
-    ) {
-        Text("Italic")
-        Toggle(checked = italic, onCheckedChange = { italic = it })
-    }
+    ToggleListView(title = "Italic", checked = italic, onCheckedChange = { italic = it })
     Text("Display", color = Color(colors.secondary), role = TextRole.TitleMedium)
     Column {
         Text(
