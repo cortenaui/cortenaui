@@ -66,9 +66,11 @@ fun ListItem(
                 .defaultMinSize(minHeight = 52.dp)
                 .then(
                     if (onClick != null) {
-                        // A pressed row takes the separator color, so both modes look the same
+                        // A pressed row takes the separator color, so both modes look the same.
+                        // Inside a ListView, the ListView draws it in the card shape.
                         Modifier.background(
-                                if (isPressed) Color(colors.outlineVariant) else Color.Transparent
+                                if (isPressed && tracker == null) Color(colors.outlineVariant)
+                                else Color.Transparent
                             )
                             .clickable(
                                 interactionSource = interactionSource,

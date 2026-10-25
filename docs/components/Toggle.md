@@ -8,7 +8,7 @@ The component is a custom pill-shaped switch featuring:
 
 - A sliding capsule thumb that scales up dynamically (spring animation) when pressed, clicked, or dragged.
 - Smooth color transition of the track background between the inactive and active states.
-- Double-gesture support: can be clicked/tapped directly to switch states, or dragged horizontally to slide the thumb.
+- Double-gesture support: tap to switch states, or drag the thumb horizontally. During a drag, the state changes as the thumb crosses the middle of the track.
 - Proper accessibility semantics (`Role.Switch`).
 - Fully unclipped drop shadows around the thumb that scale and follow the animation path correctly.
 
@@ -31,15 +31,15 @@ fun Toggle(
 
 ### Parameters
 
-| Name              | Data Type              | Description                                                                         |
-| ----------------- | ---------------------- | ----------------------------------------------------------------------------------- |
-| `checked`         | `Boolean`              | Whether the toggle is active (checked) or inactive (unchecked).                     |
-| `onCheckedChange` | `((Boolean) -> Unit)?` | Called when the user clicks or drags the toggle to change its state.                |
-| `modifier`        | `Modifier`             | Standard Compose modifier.                                                          |
-| `enabled`         | `Boolean`              | Disables clicks, gestures, and dims the toggle visually with an alpha when `false`. |
-| `activeColor`     | `Color`                | Track background color when active (`checked = true`). Default: success.            |
-| `inactiveColor`   | `Color`                | Track background color when inactive (`checked = false`). Default: outline variant. |
-| `thumbColor`      | `Color`                | Color of the sliding inner thumb capsule. Default: white.                           |
+| Name              | Data Type              | Description                                                                                     |
+| ----------------- | ---------------------- | ----------------------------------------------------------------------------------------------- |
+| `checked`         | `Boolean`              | Whether the toggle is active (checked) or inactive (unchecked).                                 |
+| `onCheckedChange` | `((Boolean) -> Unit)?` | Called when the user taps the toggle, and during a drag each time the thumb crosses the middle. |
+| `modifier`        | `Modifier`             | Standard Compose modifier.                                                                      |
+| `enabled`         | `Boolean`              | Disables clicks, gestures, and dims the toggle visually with an alpha when `false`.             |
+| `activeColor`     | `Color`                | Track background color when active (`checked = true`). Default: success.                        |
+| `inactiveColor`   | `Color`                | Track background color when inactive (`checked = false`). Default: outline variant.             |
+| `thumbColor`      | `Color`                | Color of the sliding inner thumb capsule. Default: white.                                       |
 
 ### Example
 
