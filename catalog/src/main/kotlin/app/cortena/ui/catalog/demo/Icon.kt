@@ -15,25 +15,18 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import app.cortena.ui.catalog.ToggleListView
 import framework.cortena.icons.PhosphorIcon
 import framework.cortena.icons.PhosphorIcons
 import framework.cortena.ui.color.ColorToken
 import framework.cortena.ui.components.Icon
 import framework.cortena.ui.components.Text
-import framework.cortena.ui.components.Toggle
 import framework.cortena.ui.theme.value
 
 @Composable
 fun IconDemo() {
     var enabled by remember { mutableStateOf(true) }
-    Row(
-        modifier = Modifier.fillMaxWidth(),
-        horizontalArrangement = Arrangement.SpaceBetween,
-        verticalAlignment = Alignment.CenterVertically,
-    ) {
-        Text("Enable Icon")
-        Toggle(checked = enabled, onCheckedChange = { enabled = it })
-    }
+    ToggleListView(title = "Enable Icon", checked = enabled, onCheckedChange = { enabled = it })
 
     Text("Phosphor Icons")
     Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(16.dp)) {

@@ -29,7 +29,9 @@ fun Separator(
     indent: Dp = 0.dp,
 ) {
     val colors = LocalColors.current
-    val resolvedColor = if (color.isSpecified) color else Color(colors.outlineVariant)
+    // Softened, so dividers stay quieter than the Toggle and Slider tracks that share the role
+    val resolvedColor =
+        if (color.isSpecified) color else Color(colors.outlineVariant).copy(alpha = 0.6f)
 
     val layoutModifier =
         if (orientation == Orientation.Horizontal) {

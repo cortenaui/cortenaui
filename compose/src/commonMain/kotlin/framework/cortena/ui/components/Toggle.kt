@@ -21,7 +21,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.isSpecified
 import androidx.compose.ui.graphics.lerp
 import androidx.compose.ui.graphics.luminance
@@ -45,6 +44,7 @@ import framework.cortena.ui.primitives.DragTrack
 import framework.cortena.ui.shape.CapsuleShape
 import framework.cortena.ui.size.SizeToken
 import framework.cortena.ui.theme.LocalColors
+import framework.cortena.ui.theme.LocalIsDark
 import framework.cortena.ui.theme.toggleThumbPadding
 import framework.cortena.ui.theme.toggleThumbWidth
 import framework.cortena.ui.theme.toggleTrackHeight
@@ -75,10 +75,18 @@ fun Toggle(
     val thumbHeight = trackHeight - (thumbPadding * 2)
 
     val resolvedActiveColor = if (activeColor.isSpecified) activeColor else Color(colors.success)
+    // The separator tone, so the track stays visible on surfaceVariant cards such as ListView
     val resolvedInactiveColor =
-        if (inactiveColor.isSpecified) inactiveColor else Color(colors.surfaceVariant)
+        if (inactiveColor.isSpecified) inactiveColor else Color(colors.outlineVariant)
     val resolvedThumbColor = if (thumbColor.isSpecified) thumbColor else Color.White
     val thumbShadow = thumbShadow(resolvedThumbColor, enabled)
+
+    // Disabled dims the track. On a dark theme the inactive gray would fade into the background, so
+    // only the active color dims there.
+    val isDark = LocalIsDark.current
+    val trackActiveColor = if (enabled) resolvedActiveColor else resolvedActiveColor.disabled()
+    val trackInactiveColor =
+        if (enabled || isDark) resolvedInactiveColor else resolvedInactiveColor.disabled()
 
     val layoutDirection = LocalLayoutDirection.current
     val isLtr = layoutDirection == LayoutDirection.Ltr
@@ -164,13 +172,10 @@ fun Toggle(
         track = {
             Box(
                 modifier =
-                    Modifier.fillMaxSize()
-                        .clip(shape)
-                        .graphicsLayer { alpha = if (enabled) 1f else 0.38f }
-                        .drawBehind {
-                            val progress = dampedAnimation.progress.fastCoerceIn(0f, 1f)
-                            drawRect(lerp(resolvedInactiveColor, resolvedActiveColor, progress))
-                        }
+                    Modifier.fillMaxSize().clip(shape).drawBehind {
+                        val progress = dampedAnimation.progress.fastCoerceIn(0f, 1f)
+                        drawRect(lerp(trackInactiveColor, trackActiveColor, progress))
+                    }
             )
         },
         thumb = {
@@ -180,16 +185,20 @@ fun Toggle(
                 modifier = Modifier.size(thumbWidth, thumbHeight),
                 shape = shape,
                 color =
-                    if (enabled) {
-                        resolvedThumbColor
-                    } else {
-                        lerp(Color(colors.surface), resolvedThumbColor, 0.38f)
+                    when {
+                        enabled -> resolvedThumbColor
+                        // See-through on a dark track. On a light theme it would take on the pale
+                        // track's tint, so it fades toward the surface instead.
+                        isDark -> resolvedThumbColor.disabled()
+                        else -> lerp(Color(colors.surface), resolvedThumbColor, 0.38f)
                     },
                 shadow = if (enabled) thumbShadow else thumbShadow.copy(alpha = 0.38f),
             )
         },
     )
 }
+
+private fun Color.disabled(): Color = copy(alpha = alpha * 0.38f)
 
 @Composable
 private fun thumbShadow(thumbColor: Color, enabled: Boolean): Shadow {

@@ -69,8 +69,9 @@ fun Slider(
     val indicatorWidth = size.sliderIndicatorWidth
     val indicatorHeight = size.sliderTrackHeight + spacing.Sm.dp
     val trackHeight = size.sliderTrackHeight
+    // The separator tone, so the track stays visible on surfaceVariant cards such as ListView
     val resolvedTrackColor =
-        if (trackColor.isSpecified) trackColor else Color(colors.surfaceVariant)
+        if (trackColor.isSpecified) trackColor else Color(colors.outlineVariant)
     val resolvedIndicatorColor = if (indicatorColor.isSpecified) indicatorColor else Color.White
     val resolvedProgressColor =
         if (progressColor.isSpecified) progressColor else Color(colors.primary)

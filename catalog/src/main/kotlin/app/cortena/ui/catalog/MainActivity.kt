@@ -9,15 +9,15 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.Font
@@ -39,7 +39,6 @@ import app.cortena.ui.catalog.demo.ToggleDemo
 import app.cortena.ui.catalog.demo.TypographyDemo
 import framework.cortena.ui.components.Text
 import framework.cortena.ui.components.TextRole
-import framework.cortena.ui.components.Toggle
 import framework.cortena.ui.layout.AppBar
 import framework.cortena.ui.layout.Body
 import framework.cortena.ui.layout.ContentView
@@ -126,25 +125,19 @@ class MainActivity : ComponentActivity() {
                                                 weight = TextWeight.Medium,
                                                 color = Color(colors.primary),
                                             )
-                                        },
-                                        trailing = {
-                                            Row(verticalAlignment = Alignment.CenterVertically) {
-                                                Text(
-                                                    "Dark Mode",
-                                                    role = TextRole.BodyMedium,
-                                                    modifier = Modifier.padding(end = 8.dp),
-                                                )
-                                                Toggle(
-                                                    checked = isDark,
-                                                    onCheckedChange = {
-                                                        themeMode.value =
-                                                            if (isDark) ThemeMode.Light
-                                                            else ThemeMode.Dark
-                                                    },
-                                                )
-                                            }
+                                        }
+                                    )
+
+                                    ToggleListView(
+                                        title = "Dark Mode",
+                                        checked = isDark,
+                                        onCheckedChange = {
+                                            themeMode.value =
+                                                if (isDark) ThemeMode.Light else ThemeMode.Dark
                                         },
                                     )
+
+                                    Spacer(modifier = Modifier.height(16.dp))
 
                                     CatalogMenu(onNavigate = { currentPage = it })
                                 }
