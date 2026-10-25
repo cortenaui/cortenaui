@@ -10,7 +10,7 @@ Every text automatically resolves its style based on a semantic role (`TextRole`
 2. **Default Role**: Defaults to `TextRole.BodyMedium` (14sp) for regular body sentences.
 3. **Typography Scaling**: Automatically resolves font sizes, weights, and line heights in SP based on the chosen semantic role.
 4. **Weight Override**: An optional `TextWeight` parameter lets a single role render in a heavier weight without switching to a separate role tier. Useful for buttons, tabs, and metadata where the role's size is right but emphasis is required.
-5. **Font Family**: Automatically uses `LocalFontFamily.current`, which is provided by `Theme` or `ContentView`. If no custom font is set, the system default font is used. Can be overridden per-instance via the `style` parameter.
+5. **Font Family**: Automatically uses `LocalFontFamily.current`, which is provided by `Theme` or `ContentView`. If no custom font is set, Inter is used; it ships with CortenaUI. Can be overridden per-instance via the `style` parameter.
 
 ## API Reference
 
