@@ -50,6 +50,8 @@ The `TextRole` enum defines 12 distinct semantic scales across 4 categories:
 - **Title**: `TitleLarge`, `TitleMedium`, `TitleSmall` (For section headers and sub-elements)
 - **Body**: `BodyLarge`, `BodyMedium`, `BodySmall` (For standard readable paragraphs and caption notes)
 
+Default weights: Display, Headline, and `TitleLarge` are SemiBold (600), `TitleMedium` and `TitleSmall` are Medium (500), and Body is Regular (400).
+
 There is no separate "Label" tier. For buttons, tabs, menu items, and other interactive labels, pick the size from the role above and pass `weight = TextWeight.Medium`.
 
 ### TextWeight Reference

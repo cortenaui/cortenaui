@@ -29,11 +29,11 @@ enum class FontStyle {
 
 data class Typography(
     val displayLarge: TextStyle =
-        TextStyle(TypeScale.DisplayLarge, TypeScale.LineHeightDisplayLarge, fontWeight = 700),
+        TextStyle(TypeScale.DisplayLarge, TypeScale.LineHeightDisplayLarge, fontWeight = 600),
     val displayMedium: TextStyle =
-        TextStyle(TypeScale.DisplayMedium, TypeScale.LineHeightDisplayMedium, fontWeight = 700),
+        TextStyle(TypeScale.DisplayMedium, TypeScale.LineHeightDisplayMedium, fontWeight = 600),
     val displaySmall: TextStyle =
-        TextStyle(TypeScale.DisplaySmall, TypeScale.LineHeightDisplaySmall, fontWeight = 700),
+        TextStyle(TypeScale.DisplaySmall, TypeScale.LineHeightDisplaySmall, fontWeight = 600),
     val headlineLarge: TextStyle =
         TextStyle(TypeScale.HeadlineLarge, TypeScale.LineHeightHeadlineLarge, fontWeight = 600),
     val headlineMedium: TextStyle =
