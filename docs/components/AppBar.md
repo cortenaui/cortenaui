@@ -12,7 +12,7 @@ The `AppBar` provides a structured layout inspired by standard Jetpack Compose c
 
 - **Title Alignment**: Automatically adjusts. If a `leading` component (like a back button) is present, the title centers perfectly. If there is no leading component, the title aligns to the `Start` (left).
 - **Leading & Trailing**: Dedicated slots for actions. If `leading` is not provided, `AppBar` integrates with `LocalNavigator` to automatically provide a back button if navigating backward is possible: a Medium glass `Button` tinted with `surfaceVariant`, with a caret icon, mirrored in RTL and announced as "Back".
-- **Glass**: The `AppBar` floats over the page, so glass buttons in it, such as the back button, blur the content that scrolls under them. See [Glass](../extra/Glass.md).
+- **Glass**: The `AppBar` floats over the page, so glass buttons in it, such as the back button, blur the content that scrolls under them and, in light mode, cast a soft shadow. See [Glass](../extra/Glass.md).
 
 ### Transparent & Customizable Background
 

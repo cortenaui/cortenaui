@@ -23,7 +23,7 @@ Each style supports a `Soft` variant that reduces the background opacity, making
 
 Every `Button` is [liquid glass](../extra/Glass.md), with nothing to set. In an `AppBar`, or
 anywhere in a `GlassLayer`, it blurs the content behind it and its background color becomes the
-tint of the glass. Inside the page itself its fill stays almost solid (90%). Either way, a thin rim
+tint of the glass, and in light mode it casts a soft shadow. Inside the page itself its fill stays almost solid (90%). Either way, a thin rim
 in a lighter shade of the background color outlines it.
 
 ### Content Scaling

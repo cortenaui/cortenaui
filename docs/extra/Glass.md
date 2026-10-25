@@ -15,6 +15,9 @@ surface in its `content` draws that recording, blurred, inside its own shape. Ev
 page is a `GlassLayer`: the page is the background and the AppBar floats over it, so buttons in
 the AppBar blur whatever scrolls under them.
 
+In light mode, glass floating over a `GlassLayer` also casts `Shadow.Default`, so it lifts off the
+page. A `shadow` passed to `Container` or `Pressable` replaces it.
+
 A glass surface inside the recorded content itself, such as a `Button` in the page, cannot sample a
 layer it is part of. It draws its fill at 90% of its alpha and the rim, without the blur.
 

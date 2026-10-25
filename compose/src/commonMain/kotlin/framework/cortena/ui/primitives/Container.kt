@@ -18,6 +18,7 @@ import framework.cortena.ui.graphics.glass.Glass
 import framework.cortena.ui.graphics.glass.glass
 import framework.cortena.ui.graphics.shadow.InnerShadow
 import framework.cortena.ui.graphics.shadow.Shadow
+import framework.cortena.ui.primitives.internal.glassShadow
 import framework.cortena.ui.primitives.internal.surface
 import framework.cortena.ui.shape.RectangleShape
 
@@ -28,7 +29,8 @@ import framework.cortena.ui.shape.RectangleShape
  * @param modifier Applied outside the shadow, so size modifiers set the surface size.
  * @param shape Outline shared by the fill and both shadows.
  * @param color Fill color. [Color.Unspecified] draws no fill. With [glass], the tint of the glass.
- * @param shadow Drop shadow outside [shape], or `null` for none.
+ * @param shadow Drop shadow outside [shape]. With `null`, glass floating over a `GlassLayer` casts
+ *   [Shadow.Default] in light mode, and any other surface casts none.
  * @param innerShadow Shadow inside [shape], drawn over the content, or `null` for none.
  * @param glass Liquid glass under the content, or `null` for a plain fill. See [Modifier.glass].
  * @param padding Space between the surface edge and [content].
@@ -49,7 +51,10 @@ fun Container(
     content: @Composable BoxScope.() -> Unit = {},
 ) {
     Box(
-        modifier = modifier.surface(shape, color, shadow, innerShadow, glass).padding(padding),
+        modifier =
+            modifier
+                .surface(shape, color, glassShadow(shadow, glass), innerShadow, glass)
+                .padding(padding),
         contentAlignment = contentAlignment,
         content = content,
     )

@@ -44,17 +44,17 @@ fun Container(
 
 ### Parameters
 
-| Name               | Type                              | Default             | Description                                                     |
-| ------------------ | --------------------------------- | ------------------- | --------------------------------------------------------------- |
-| `modifier`         | `Modifier`                        | `Modifier`          | Applied outside the shadow, so size modifiers set surface size. |
-| `shape`            | `Shape`                           | `RectangleShape`    | Outline shared by the fill and both shadows.                    |
-| `color`            | `Color`                           | `Color.Unspecified` | Fill color. Unspecified draws no fill.                          |
-| `shadow`           | `Shadow?`                         | `null`              | Drop shadow outside `shape`.                                    |
-| `innerShadow`      | `InnerShadow?`                    | `null`              | Shadow inside `shape`, drawn over the content.                  |
-| `glass`            | `Glass?`                          | `null`              | Liquid glass under the content, tinted by `color`.              |
-| `padding`          | `PaddingValues`                   | `PaddingValues()`   | Space between the surface edge and the content.                 |
-| `contentAlignment` | `Alignment`                       | `TopStart`          | Alignment of the content inside the padding.                    |
-| `content`          | `@Composable BoxScope.() -> Unit` | `{}`                | Content, laid out like a `Box`.                                 |
+| Name               | Type                              | Default             | Description                                                                  |
+| ------------------ | --------------------------------- | ------------------- | ---------------------------------------------------------------------------- |
+| `modifier`         | `Modifier`                        | `Modifier`          | Applied outside the shadow, so size modifiers set surface size.              |
+| `shape`            | `Shape`                           | `RectangleShape`    | Outline shared by the fill and both shadows.                                 |
+| `color`            | `Color`                           | `Color.Unspecified` | Fill color. Unspecified draws no fill.                                       |
+| `shadow`           | `Shadow?`                         | `null`              | Drop shadow outside `shape`. Floating glass: see [Glass](../extra/Glass.md). |
+| `innerShadow`      | `InnerShadow?`                    | `null`              | Shadow inside `shape`, drawn over the content.                               |
+| `glass`            | `Glass?`                          | `null`              | Liquid glass under the content, tinted by `color`.                           |
+| `padding`          | `PaddingValues`                   | `PaddingValues()`   | Space between the surface edge and the content.                              |
+| `contentAlignment` | `Alignment`                       | `TopStart`          | Alignment of the content inside the padding.                                 |
+| `content`          | `@Composable BoxScope.() -> Unit` | `{}`                | Content, laid out like a `Box`.                                              |
 
 ## Examples
 

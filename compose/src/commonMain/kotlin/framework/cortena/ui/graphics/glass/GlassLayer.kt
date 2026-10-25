@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.ReadOnlyComposable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.rememberGraphicsLayer
@@ -42,3 +43,7 @@ fun GlassLayer(
         CompositionLocalProvider(LocalGlassBackdrop provides backdrop) { content() }
     }
 }
+
+// True for glass in a GlassLayer's content, which floats over the recorded background
+internal val isOverGlassLayer: Boolean
+    @Composable @ReadOnlyComposable get() = LocalGlassBackdrop.current != null

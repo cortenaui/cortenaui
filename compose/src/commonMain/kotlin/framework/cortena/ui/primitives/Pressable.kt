@@ -26,6 +26,7 @@ import framework.cortena.ui.graphics.shadow.InnerShadow
 import framework.cortena.ui.graphics.shadow.Shadow
 import framework.cortena.ui.interaction.InteractiveHighlight
 import framework.cortena.ui.interaction.applyInteractiveAnimation
+import framework.cortena.ui.primitives.internal.glassShadow
 import framework.cortena.ui.primitives.internal.surface
 import framework.cortena.ui.shape.RectangleShape
 
@@ -46,7 +47,8 @@ import framework.cortena.ui.shape.RectangleShape
  * @param shape Outline shared by the fill, both shadows, the clip, and the highlight.
  * @param color Fill color. [Color.Unspecified] draws no fill. With [glass], the tint of the glass.
  *   The highlight is tuned from the first value.
- * @param shadow Drop shadow outside [shape], or `null` for none.
+ * @param shadow Drop shadow outside [shape]. With `null`, glass floating over a `GlassLayer` casts
+ *   [Shadow.Default] in light mode, and any other surface casts none.
  * @param innerShadow Shadow inside [shape], drawn over the content, or `null` for none.
  * @param glass Liquid glass under the content, or `null` for a plain fill. See [Modifier.glass].
  * @param padding Space between the surface edge and [content].
@@ -90,7 +92,7 @@ fun Pressable(
                     }
                     alpha = if (enabled) 1f else 0.38f
                 }
-                .surface(shape, color, shadow, innerShadow, glass)
+                .surface(shape, color, glassShadow(shadow, glass), innerShadow, glass)
                 .clip(shape)
                 .then(if (enabled) highlight.gestureModifier else Modifier)
                 .combinedClickable(
