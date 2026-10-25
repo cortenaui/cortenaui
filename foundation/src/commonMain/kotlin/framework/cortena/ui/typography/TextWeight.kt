@@ -7,12 +7,14 @@ package framework.cortena.ui.typography
 /**
  * CortenaUI — Text Weight
  *
- * Three opinionated weight tiers exposed alongside [framework.cortena.ui.typography.TextStyle].
+ * Opinionated weight tiers exposed alongside [framework.cortena.ui.typography.TextStyle].
  *
  * - [Default] — fall back to the weight defined by the active text role. Use this for body copy and
  *   paragraph text. Compose components ignore this value and let the role decide.
- * - [Medium] — semi-bold (500). Use for interactive labels (buttons, tabs, menu items) and for
+ * - [Medium] — medium (500). Use for interactive labels (buttons, tabs, menu items) and for
  *   emphasizing inline runs without escalating to a full title role.
+ * - [SemiBold] — semi-bold (600), the weight of the Display and Headline roles. Use for headings
+ *   set in a smaller role.
  * - [Bold] — bold (700). Use sparingly for very strong emphasis.
  *
  * Stored as a raw `Int` weight value matching the W3C CSS scale (100–900). Framework-agnostic; the
@@ -21,5 +23,6 @@ package framework.cortena.ui.typography
 enum class TextWeight(public val value: Int) {
     Default(0),
     Medium(500),
+    SemiBold(600),
     Bold(700),
 }

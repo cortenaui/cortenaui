@@ -56,11 +56,12 @@ There is no separate "Label" tier. For buttons, tabs, menu items, and other inte
 
 ### TextWeight Reference
 
-| Weight               | Value | Use case                                                         |
-| -------------------- | ----- | ---------------------------------------------------------------- |
-| `TextWeight.Default` | —     | Inherit the role's natural weight. The default for body copy.    |
-| `TextWeight.Medium`  | 500   | Interactive labels (buttons, tabs, menu items), inline emphasis. |
-| `TextWeight.Bold`    | 700   | Strong emphasis. Use sparingly.                                  |
+| Weight                | Value | Use case                                                         |
+| --------------------- | ----- | ---------------------------------------------------------------- |
+| `TextWeight.Default`  | —     | Inherit the role's natural weight. The default for body copy.    |
+| `TextWeight.Medium`   | 500   | Interactive labels (buttons, tabs, menu items), inline emphasis. |
+| `TextWeight.SemiBold` | 600   | Headings set in a smaller role.                                  |
+| `TextWeight.Bold`     | 700   | Strong emphasis. Use sparingly.                                  |
 
 ### Examples
 
