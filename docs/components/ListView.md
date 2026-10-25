@@ -7,6 +7,9 @@ distinct section.
 
 Items are registered through a scope builder — call `item { }` inside the `content` lambda for each row.
 
+The card does not clip its rows, so content that grows past a row, such as a pressed `Toggle` thumb
+and its shadow, stays visible. Only the pressed-row highlight follows the card's rounded corners.
+
 ## API Reference
 
 ```kotlin
