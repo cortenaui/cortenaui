@@ -1,6 +1,6 @@
 [versions]
 activityCompose = "1.13.0"
-agp = "9.5.1"
+agp = "9.5.2"
 androidCompileSdk = "37"
 androidTargetSdk = "37"
 # :compose and :catalog
